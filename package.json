@@ -1,0 +1,19 @@
+{
+  "name": "electron-kits",
+  "version": "v0.0.1",
+  "description": "Electron kits.",
+  "main": "src/main.js",
+  "author": "Shing Rui <sunquakes@outlook.com>",
+  "license": "Apache-2.0 license",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^26.3.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6"
+  }
+}
