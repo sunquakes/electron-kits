@@ -1,5 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import { execute } from '../db/sqlite3';
+
+execute(
+  'CREATE TABLE IF NOT EXISTS session (' +
+  'id Integer PRIMARY KEY AUTOINCREMENT,' +
+  'ip VARCHAR(255) NOT NULL DEFAULT "",' +
+  'port Integer NOT NULL DEFAULT 80,' +
+  'state Integer NOT NULL DEFAULT 0,' +
+  'type Integer NOT NULL DEFAULT 0,' +
+  'delimiter VARCHAR(255) NOT NULL DEFAULT "",' +
+  'message_type VARCHAR(20) NOT NULL DEFAULT "",' +
+  'create_time DATETIME,' +
+  'update_time DATETIME' +
+  ')'
+)
 
 defineProps({
   msg: String,
@@ -21,9 +36,8 @@ const count = ref(0)
 
   <p>
     Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
+    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the official Vue + Vite
+    starter
   </p>
   <p>
     Install
