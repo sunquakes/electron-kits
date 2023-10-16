@@ -1,6 +1,6 @@
 const path = require('path')
 const sqlite3 = require('sqlite3').verbose()
-const dbFile = path.join(process.resourcesPath, 'sqlite3.db')
+const dbFile = path.join(process.resourcesPath || '', 'sqlite3.db')
 let db
 
 const getDb = () => {
@@ -22,11 +22,11 @@ const getDb = () => {
 export function execute(sql) {
   return getDb().then((db) => {
     return new Promise((resolve, reject) => {
-      db.run(sql, function (err) {
+      db.exec(sql, function (err) {
         if (err != null) {
           reject(err)
         } else {
-          resolve(this.lastID)
+          resolve()
         }
       })
     })
