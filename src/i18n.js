@@ -1,32 +1,17 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
-const Store = require('electron-store')
-const store = new Store()
-Vue.use(VueI18n)
+import { createI18n } from 'vue-i18n'
 
-const DEFAULT_LANG = 'en'
-const LOCALE_KEY = 'locale'
+import zh from './lang/zh'
+import en from './lang/en'
 
-const getLocale = () => {
-  let lang
-  const locale = store.get(LOCALE_KEY)
-  if (locale.startsWith('zh')) {
-    lang = 'zh'
-  }
-  if (locales[lang] === undefined) {
-    lang = DEFAULT_LANG
-  }
-  return lang
+const messages = {
+  zh: zh,
+  en: en
 }
 
-const locales = {
-  zh: require('./language/zh.js'),
-  en: require('./language/en.js')
-}
-
-const i18n = new VueI18n({
-  locale: getLocale(),
-  messages: locales
+const i18n = createI18n({
+  legacy: false,
+  locale: 'en',
+  messages: messages
 })
 
 export default i18n
