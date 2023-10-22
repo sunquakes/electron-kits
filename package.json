@@ -4,6 +4,9 @@
   "author": "Shing Rui <sunquakes@outlook.com>",
   "license": "Apache-2.0",
   "main": "main.js",
+  "bin": {
+    "ekits": "bin/ekits.js"
+  },
   "scripts": {
     "postinstall": "install-app-deps",
     "test": "jest",
