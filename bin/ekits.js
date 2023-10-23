@@ -23,7 +23,7 @@ if (command === '-V' || command === '--version') {
 
   const templatePath = __dirname + '/../'
 
-  const excludes = ['node_modules', '.vscode', 'dist', '.git']
+  const excludes = ['node_modules', '.vscode', 'dist', '.git', 'bin']
   copyDirectory(templatePath, projectDirectory, excludes)
 } else {
   console.info(help())
