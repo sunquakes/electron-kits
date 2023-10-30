@@ -7,11 +7,17 @@
   "bin": {
     "ekits": "bin/ekits.js"
   },
+  "build": {
+    "appId": "com.sunquakes.ekits",
+    "directories": {
+      "output": "build"
+    }
+  },
   "scripts": {
     "postinstall": "install-app-deps",
     "test": "jest",
     "dev": "node .electron-kits/dev-runner.js",
-    "build": "vite build",
+    "build": "vite build && electron-builder",
     "preview": "vite preview"
   },
   "dependencies": {
