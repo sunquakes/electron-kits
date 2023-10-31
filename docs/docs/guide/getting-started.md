@@ -50,3 +50,22 @@ npm install
 
 :::
 ::::
+
+### Build Application
+
+:::: code-group
+::: code-group-item YARN
+
+```bash:no-line-numbers
+yarn build
+```
+
+:::
+::: code-group-item NPM
+
+```bash:no-line-numbers
+npm run build
+```
+
+:::
+::::
