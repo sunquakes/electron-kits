@@ -30,7 +30,7 @@ export default defineUserConfig({
         sidebar: {
           '/zh/guide/': [
             {
-              children: ['/zh/guide/getting-started.md']
+              children: ['/zh/guide/getting-started.md', '/zh/guide/sqlite3.md']
             }
           ]
         }
@@ -41,12 +41,12 @@ export default defineUserConfig({
     '/': {
       lang: 'English',
       title: 'Electron Kits',
-      description: 'A out of the box kits for desktop application development.'
+      description: 'A out of the box kits for cross-platform desktop application development.'
     },
     '/zh/': {
       lang: '简体中文',
       title: 'Electron Kits',
-      description: '一个CesiumJS的vue3.x组件库。'
+      description: '一个开箱即用的跨平台桌面程序开发套件'
     }
   }
 })

@@ -14,3 +14,20 @@ features:
     details: Vue和Anti-Design Vue提供了一套丰富的预先设计的UI组件和一个遵循可用性和视觉吸引力最佳实践的设计系统。
 footer: Apache-2.0 license | Copyright © 2023-present Shing Rui
 ---
+
+---
+
+<div class="library-logo">
+  <div>
+    <img src="/images/anti-design-logo.svg" />
+  </div>
+  <div>
+    <img src="/images/electron-logo.svg" />
+  </div>
+  <div>
+    <img src="/images/vue-logo.svg" />
+  </div>
+  <div>
+    <img src="/images/sqlite370_banner.gif" />
+  </div>
+</div>
