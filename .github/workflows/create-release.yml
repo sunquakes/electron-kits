@@ -19,10 +19,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Yarn 
-        run: |
-          npm install -g yarn 
-
       - name: Build Library
         run: |
           yarn install
