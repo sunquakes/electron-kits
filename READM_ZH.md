@@ -1,4 +1,4 @@
-English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main/README_ZH.md)
+[English](https://github.com/sunquakes/electron-kits/blob/main/README.md) | 🇨🇳中文
 
 # Electron Kits
 
@@ -13,19 +13,19 @@ English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main
   <img alt="electron-kits" src="https://img.shields.io/github/v/release/sunquakes/electron-kits">
 </p>
 
-## Documentation
+## 文档
 
-Visit [ekits.sunquakes.com](https://ekits.sunquakes.com).
+访问 [ekits.sunquakes.com](https://ekits.sunquakes.com).
 
-## Quick Start
+## 快速开始
 
-### Installing
+### 安装
 
 ```bash
 yarn add electron-kits -g
 ```
 
-### Create a Application
+### 创建应用
 
 ```bash
 ekits create <your-project-name>
@@ -33,12 +33,12 @@ cd <your-project-name>
 yarn
 ```
 
-### Build Application
+### 编译应用
 
 ```bash
 yarn build
 ```
 
-## License
+## 证书
 
 [Apache-2.0 license](https://github.com/sunquakes/electron-kits/blob/main/LICENSE)
