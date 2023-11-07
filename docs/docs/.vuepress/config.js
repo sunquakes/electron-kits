@@ -1,6 +1,11 @@
 import { defineUserConfig, defaultTheme } from 'vuepress'
 
 export default defineUserConfig({
+  title: 'Electron Kits',
+  description: 'A electron kits, combined with Electron/Vue3/AntiDesign/SQLite3.',
+  head: [
+    ['link', { rel: 'icon', href: '/images/logo.png' }]
+  ],
   lang: 'en-US',
   theme: defaultTheme({
     logo: '/images/logo.png',
