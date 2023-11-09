@@ -19,11 +19,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Build Library
-        run: |
-          yarn install
-          yarn build
-
       - name: Extract Changelog
         id: extract_changelog
         run: |
