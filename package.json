@@ -2,6 +2,13 @@
   "name": "electron-kits",
   "version": "0.0.1",
   "author": "Shing Rui <sunquakes@outlook.com>",
+  "description": "A electron kits, combined with Electron/Vue3/AntiDesign/SQLite3.",
+  "keywords": [
+    "electron",
+    "vue",
+    "anti-design-vue",
+    "sqlite3"
+  ],
   "license": "Apache-2.0",
   "main": "main.js",
   "bin": {
