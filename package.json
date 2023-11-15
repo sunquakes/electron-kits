@@ -1,6 +1,6 @@
 {
   "name": "electron-kits",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Shing Rui <sunquakes@outlook.com>",
   "description": "A electron kits, combined with Electron/Vue3/AntiDesign/SQLite3.",
   "keywords": [
