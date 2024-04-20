@@ -23,6 +23,6 @@ const runCommand = (command, name) => {
   await server.listen()
 
   // Start electron.
-  const electronCommand = 'NODE_ENV=development electron .'
+  const electronCommand = 'cross-env NODE_ENV=development & electron .'
   runCommand(electronCommand, 'electron')
 })()
