@@ -27,7 +27,13 @@ function createWindow() {
         win.webContents.openDevTools()
       }
     }
-    globalShortcut.register('F12', toggleDevTools)
+    win.webContents.on('before-input-event', (event, input) => {
+      if (input.type === 'keyDown') {
+        if (input.key === 'F12') {
+          toggleDevTools()
+        }
+      }
+    })
     toggleDevTools()
   }
 }
