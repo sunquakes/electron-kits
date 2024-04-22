@@ -4,8 +4,8 @@
     <a-radio-button value="en">English</a-radio-button>
   </a-radio-group>
   <div class="poem">
+    {{ t("line_one") }}
     <p>
-      {{ $t('line_one') }}
     </p>
     <p>
       {{ $t('line_two') }}
@@ -20,24 +20,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { locale } = useI18n({ useScope: 'global' })
+const { t, locale } = useI18n({ useScope: 'global' })
 
-const { modelValue } = defineProps({
-  modelValue: {
-    type: String,
-    require: true
-  }
-})
-let lang = ref("")
+let lang = 'en'
 onMounted(() => {
-  lang.value = modelValue
-  locale.value = lang.value
+  locale.value = lang
 })
 const onChange = () => {
-  locale.value = lang.value
+  locale.value = lang
 }
 </script>
 
@@ -49,4 +42,4 @@ p {
 .poem {
   margin-top: 20px;
 }
-</style>// 
+</style>//

@@ -1,31 +1,34 @@
-<script setup>
-import { ref } from 'vue'
-import StrayBirds from './components/StrayBirds.vue'
-const lang = ref("zh")
-</script>
-
 <template>
-  <div>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <StrayBirds v-model="lang" />
+  <pro-layout
+    :locale="locale"
+    v-bind="layoutConf"
+    v-model:openKeys="state.openKeys"
+    v-model:collapsed="state.collapsed"
+    v-model:selectedKeys="state.selectedKeys"
+  >
+    <router-view />
+  </pro-layout>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
+<script setup lang="ts">
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { getMenuData, clearMenuItem } from '@ant-design-vue/pro-layout'
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
+const locale = (i18n: string) => i18n
+const router = useRouter()
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+const { menuData } = getMenuData(clearMenuItem(router.getRoutes()))
+
+const state = reactive({
+  collapsed: false, // default value
+  openKeys: ['/dashboard'],
+  selectedKeys: ['/welcome']
+})
+const layoutConf = reactive({
+  navTheme: 'dark',
+  layout: 'mix',
+  splitMenus: false,
+  menuData
+})
+</script>
