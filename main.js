@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut } = require('electron')
+const { app, BrowserWindow, globalShortcut, Menu } = require('electron')
 const path = require('path')
 
 const NODE_ENV = process.env.NODE_ENV
@@ -51,6 +51,7 @@ app.whenReady().then(() => {
       globalShortcut.unregister('F12')
     }
   })
+  Menu.setApplicationMenu(null)
 })
 
 app.on('window-all-closed', () => {
