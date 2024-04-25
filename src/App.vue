@@ -1,5 +1,6 @@
 <template>
   <ELaytout>
+    <router-view></router-view>
   </ELaytout>
 </template>
 
