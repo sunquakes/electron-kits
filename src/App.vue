@@ -1,9 +1,3 @@
 <template>
-  <ELaytout>
-    <router-view></router-view>
-  </ELaytout>
+  <router-view></router-view>
 </template>
-
-<script setup lang="ts">
-import ELaytout from './components/ELayout.vue'
-</script>
