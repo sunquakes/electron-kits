@@ -12,7 +12,7 @@
           <a-breadcrumb-item>Bill</a-breadcrumb-item>
         </a-breadcrumb>
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          <slot></slot>
+          <router-view></router-view>
         </div>
       </a-layout-content>
       <EFooter></EFooter>

@@ -1,49 +1,62 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-    <a-menu-item key="1">
-      <pie-chart-outlined />
-      <span>Option 1</span>
-    </a-menu-item>
-    <a-menu-item key="2">
-      <desktop-outlined />
-      <span>Option 2</span>
-    </a-menu-item>
-    <a-sub-menu key="sub1">
-      <template #title>
-        <span>
-          <user-outlined />
-          <span>User</span>
-        </span>
-      </template>
-      <a-menu-item key="3">Tom</a-menu-item>
-      <a-menu-item key="4">Bill</a-menu-item>
-      <a-menu-item key="5">Alex</a-menu-item>
-    </a-sub-menu>
-    <a-sub-menu key="sub2">
-      <template #title>
-        <span>
-          <team-outlined />
-          <span>Team</span>
-        </span>
-      </template>
-      <a-menu-item key="6">Team 1</a-menu-item>
-      <a-menu-item key="8">Team 2</a-menu-item>
-    </a-sub-menu>
-    <a-menu-item key="9">
-      <file-outlined />
-      <span>File</span>
-    </a-menu-item>
-  </a-menu>
+  <a-menu
+    v-model:selectedKeys="state.selectedKeys"
+    theme="dark"
+    mode="inline"
+    :items="items"
+  ></a-menu>
 </template>
 
 <script lang="ts" setup>
-import {
-  PieChartOutlined,
-  DesktopOutlined,
-  UserOutlined,
-  TeamOutlined,
-  FileOutlined
-} from '@ant-design/icons-vue'
-import { ref } from 'vue'
-const selectedKeys = ref<string[]>(['1'])
+import { reactive, watch } from 'vue'
+import router from '../../router'
+const state = reactive({
+  selectedKeys: ['1']
+})
+
+const list = router.options.routes
+console.log('list', list)
+
+function getItem(
+  label: VueElement | string,
+  key: string,
+  icon?: any,
+  children?: ItemType[],
+  type?: 'group'
+): ItemType {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type
+  } as ItemType
+}
+
+const getMenu = (list: RouteRecord[]) => {
+  console.log('list0', list)
+  let menu = []
+  for (let item of list) {
+    if (item.meta != undefined && item.meta.isMenu) {
+      let menuItem
+      if (item.children != undefined && item.children.length > 0) {
+        menuItem = getItem(item.meta.title, item.path, null, getMenu(item.children))
+      } else {
+        menuItem = getItem(item.meta.title, item.path)
+      }
+      menu.push(menuItem)
+    }
+  }
+  return menu
+}
+
+watch(
+  () => state.selectedKeys,
+  (_val, oldVal) => {
+    console.log('_val', _val)
+  }
+)
+
+const items = getMenu(list)
+console.log('menu', items)
 </script>
