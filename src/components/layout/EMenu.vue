@@ -4,18 +4,22 @@
     theme="dark"
     mode="inline"
     :items="items"
+    @click="click"
   ></a-menu>
 </template>
 
 <script lang="ts" setup>
-import { reactive, watch } from 'vue'
+import { reactive, watch, h, defineModel } from 'vue'
 import router from '../../router'
+
+const model = defineModel({ default: 'Dashboard' })
+console.log('model', model)
+
 const state = reactive({
-  selectedKeys: ['1']
+  selectedKeys: [model.value]
 })
 
 const list = router.options.routes
-console.log('list', list)
 
 function getItem(
   label: VueElement | string,
@@ -34,17 +38,24 @@ function getItem(
 }
 
 const getMenu = (list: RouteRecord[]) => {
-  console.log('list0', list)
   let menu = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
       let menuItem
       if (item.children != undefined && item.children.length > 0) {
-        menuItem = getItem(item.meta.title, item.path, null, getMenu(item.children))
+        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon), getMenu(item.children))
       } else {
-        menuItem = getItem(item.meta.title, item.path)
+        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon))
       }
       menu.push(menuItem)
+    }
+  }
+  // Get the children if there is no menu.
+  if (menu.length == 0) {
+    for (let item of list) {
+      if (item.children != undefined && item.children.length > 0) {
+        menu = getMenu(item.children)
+      }
     }
   }
   return menu
@@ -58,5 +69,10 @@ watch(
 )
 
 const items = getMenu(list)
-console.log('menu', items)
+
+router.push({ name: model.value })
+
+const click = (menu) => {
+  router.push({ name: menu.key })
+}
 </script>

@@ -2,7 +2,7 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible @collapse="collapse">
       <ELogo :collapsed="collapsed"></ELogo>
-      <EMenu></EMenu>
+      <EMenu v-model="currentMenu"></EMenu>
     </a-layout-sider>
     <a-layout>
       <EHeader></EHeader>
@@ -23,15 +23,12 @@
 <script lang="ts" setup>
 import ELogo from './layout/ELogo.vue'
 import EMenu from './layout/EMenu.vue'
-import EHeader from './layout/EHeader.vue';
+import EHeader from './layout/EHeader.vue'
 import EFooter from './layout/EFooter.vue'
 import { ref } from 'vue'
 
 const collapsed = ref<boolean>(false)
-
-const collapse = (a, type) => {
-  console.log(a, type, collapsed)
-}
+const currentMenu = ref<String>('Dashboard')
 </script>
 
 <style lang="scss" scoped>
