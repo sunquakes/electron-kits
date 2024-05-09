@@ -7,12 +7,7 @@ import User from '../components/User.vue'
 import ELogin from '../components/ELogin.vue'
 
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-  MailOutlined,
-  DesktopOutlined,
-  AppstoreOutlined,
+  DashboardOutlined,
   SettingOutlined
 } from '@ant-design/icons-vue'
 
@@ -26,7 +21,7 @@ const routes = [
         name: 'Dashboard',
         path: '/dashboard',
         component: StrayBirds,
-        meta: { isMenu: true, title: '首页', icon: AppstoreOutlined }
+        meta: { isMenu: true, title: '首页', icon: DashboardOutlined }
       },
       {
         name: 'System',
@@ -37,7 +32,7 @@ const routes = [
             name: 'User',
             path: '/user',
             meta: { isMenu: true, title: '系统用户' },
-            component: StrayBirds
+            component: User 
           }
         ]
       }

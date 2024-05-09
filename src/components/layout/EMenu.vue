@@ -12,8 +12,7 @@
 import { reactive, watch, h, defineModel } from 'vue'
 import router from '../../router'
 
-const model = defineModel({ default: 'Dashboard' })
-console.log('model', model)
+const model = defineModel({ required: true })
 
 const state = reactive({
   selectedKeys: [model.value]
@@ -52,10 +51,16 @@ const getMenu = (list: RouteRecord[]) => {
   }
   // Get the children if there is no menu.
   if (menu.length == 0) {
-    for (let item of list) {
-      if (item.children != undefined && item.children.length > 0) {
-        menu = getMenu(item.children)
-      }
+    menu = getMenuChildren(list)
+  }
+  return menu
+}
+
+const getMenuChildren = (list: RouteRecord[]) => {
+  let menu = []
+  for (let item of list) {
+    if (item.children != undefined && item.children.length > 0) {
+      menu = getMenu(item.children)
     }
   }
   return menu
@@ -73,6 +78,7 @@ const items = getMenu(list)
 router.push({ name: model.value })
 
 const click = (menu) => {
+  model.value = menu.key
   router.push({ name: menu.key })
 }
 </script>
