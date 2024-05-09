@@ -1,7 +1,7 @@
 <template>
   <a-row>
     <a-col class="left" :span="16"></a-col>
-    <a-col :span="8">
+    <a-col class="right" :span="8">
       <a-form
         :model="formState"
         name="normal_login"
@@ -42,7 +42,6 @@
 
         <a-form-item>
           <a-button
-            :disabled="disabled"
             type="primary"
             html-type="submit"
             class="login-form-button"
@@ -82,13 +81,20 @@ const disabled = computed(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .ant-row {
   height: 100%;
 }
 .left {
   height: 100%;
   background: url(../assets/images/login.png) no-repeat center center/ 100%;
+}
+.right {
+  display: flex;
+  align-items: center;
+  form {
+    margin: 0 auto;
+  }
 }
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
