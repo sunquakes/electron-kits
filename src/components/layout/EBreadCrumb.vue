@@ -10,6 +10,8 @@
 <script lang="ts" setup>
 import { watch, defineModel } from 'vue'
 import router from '../../router'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 interface Route {
   path: string
@@ -22,11 +24,11 @@ interface Route {
 
 const list = router.options.routes
 
-const getMenu = (list: RouteRecord[], name: string): Route[] => {
+const getMenu = (list: RouteRecord[], name: string): Route[] | undefined => {
   let breadcrumb = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
-      breadcrumb.push({ path: item.path, breadcrumbName: item.meta.title })
+      breadcrumb.push({ path: item.path, breadcrumbName: t(item.meta.title) })
       if (item.name == name) {
         return breadcrumb
       }

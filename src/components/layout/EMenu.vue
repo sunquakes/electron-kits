@@ -11,6 +11,8 @@
 <script lang="ts" setup>
 import { reactive, watch, h, defineModel } from 'vue'
 import router from '../../router'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const model = defineModel({ required: true })
 
@@ -42,9 +44,9 @@ const getMenu = (list: RouteRecord[]) => {
     if (item.meta != undefined && item.meta.isMenu) {
       let menuItem
       if (item.children != undefined && item.children.length > 0) {
-        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon), getMenu(item.children))
+        menuItem = getItem(t(item.meta.title), item.name, h(item.meta.icon), getMenu(item.children))
       } else {
-        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon))
+        menuItem = getItem(t(item.meta.title), item.name, h(item.meta.icon))
       }
       menu.push(menuItem)
     }

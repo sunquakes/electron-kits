@@ -21,17 +21,17 @@ const routes = [
         name: 'Dashboard',
         path: '/dashboard',
         component: StrayBirds,
-        meta: { isMenu: true, title: '首页', icon: DashboardOutlined }
+        meta: { isMenu: true, title: 'menu.dashboard', icon: DashboardOutlined }
       },
       {
         name: 'System',
         path: '/system',
-        meta: { isMenu: true, title: '系统管理', icon: SettingOutlined },
+        meta: { isMenu: true, title: 'menu.system', icon: SettingOutlined },
         children: [
           {
             name: 'User',
             path: '/user',
-            meta: { isMenu: true, title: '系统用户' },
+            meta: { isMenu: true, title: 'menu.system_user' },
             component: User 
           }
         ]
