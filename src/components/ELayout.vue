@@ -1,6 +1,6 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <a-layout-sider v-model:collapsed="collapsed" collapsible @collapse="collapse">
+    <a-layout-sider v-model:collapsed="collapsed" collapsible>
       <ELogo :collapsed="collapsed"></ELogo>
       <EMenu v-model="currentMenu"></EMenu>
     </a-layout-sider>
@@ -23,10 +23,27 @@ import EBreadCrumb from './layout/EBreadCrumb.vue'
 import EMenu from './layout/EMenu.vue'
 import EHeader from './layout/EHeader.vue'
 import EFooter from './layout/EFooter.vue'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { options } from '../db/sqlite3'
+
+import { useRouter } from 'vue-router'
 
 const collapsed = ref<boolean>(false)
 const currentMenu = ref<string>('Dashboard')
+
+// Get the current router object
+const router = useRouter()
+
+// Permission
+options.before = (resolve, reject) => {
+  const user = localStorage.getItem('user')
+  const currentRoute = computed(() => router.currentRoute.value)
+  console.log('currentRoute', currentRoute.value)
+  if (!user) {
+    router.push({ name: 'Login' })
+    reject('No permission.')
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -10,11 +10,10 @@
         @finishFailed="onFinishFailed"
       >
         <a-form-item
-          label="Username"
           name="username"
-          :rules="[{ required: true, message: 'Please input your username!' }]"
+          :rules="[{ required: true, message: t('login.username_required') }]"
         >
-          <a-input v-model:value="formState.username">
+          <a-input :placeholder="t('login.username')" v-model:value="formState.username">
             <template #prefix>
               <UserOutlined class="site-form-item-icon" />
             </template>
@@ -22,11 +21,10 @@
         </a-form-item>
 
         <a-form-item
-          label="Password"
           name="password"
-          :rules="[{ required: true, message: 'Please input your password!' }]"
+          :rules="[{ required: true, message: t('login.password_required') }]"
         >
-          <a-input-password v-model:value="formState.password">
+          <a-input-password :placeholder="t('login.password')" v-model:value="formState.password">
             <template #prefix>
               <LockOutlined class="site-form-item-icon" />
             </template>
@@ -41,13 +39,7 @@
         </a-form-item>
 
         <a-form-item>
-          <a-button
-            type="primary"
-            html-type="submit"
-            class="login-form-button"
-          >
-            Log in
-          </a-button>
+          <a-button type="primary" html-type="submit" class="login-form-button"> Log in </a-button>
           Or
           <a href="">register now!</a>
         </a-form-item>
@@ -59,6 +51,11 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import router from '../router'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({ useScope: 'global' })
+
 interface FormState {
   username: string
   password: string
@@ -70,6 +67,7 @@ const formState = reactive<FormState>({
   remember: true
 })
 const onFinish = (values: any) => {
+  router.push({ path: '/' })
   console.log('Success:', values)
 }
 

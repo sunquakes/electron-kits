@@ -10,6 +10,10 @@
 
 <script lang="ts" setup>
 import type { TableColumnsType } from 'ant-design-vue'
+import { getList } from '../api/user'
+
+getList()
+
 const columns: TableColumnsType = [
   { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
   { title: 'Age', width: 100, dataIndex: 'age', key: 'age', fixed: 'left' },

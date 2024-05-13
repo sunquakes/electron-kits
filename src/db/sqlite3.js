@@ -1,21 +1,30 @@
 const path = require('path')
 const sqlite3 = require('sqlite3').verbose()
 const dbFile = path.join(process.resourcesPath || '', 'sqlite3.db')
-let db
+
+export const options = { db: undefined, before: undefined, after: undefined }
 
 const getDb = () => {
-  return new Promise((resolve) => {
-    if (db !== undefined) {
-      resolve(db)
+  return new Promise((resolve, reject) => {
+    if (options.before != undefined && typeof options.before == 'function') {
+      options.before(resolve, reject)
+    }
+    if (options.db !== undefined) {
+      resolve(options.db)
     } else {
-      db = new sqlite3.Database(dbFile, (err) => {
+      options.db = new sqlite3.Database(dbFile, (err) => {
         if (err !== null) {
-          db = new sqlite3.Database(':memory:')
-          resolve(db)
+          options.db = new sqlite3.Database(':memory:')
+          resolve(options.db)
         }
       })
-      resolve(db)
+      resolve(options.db)
     }
+  }).then((res) => {
+    if (options.after != undefined && typeof options.after == 'function') {
+      options.after(resolve, reject)
+    }
+    return res
   })
 }
 

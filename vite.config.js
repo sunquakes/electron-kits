@@ -8,4 +8,7 @@ export default defineConfig({
   ssr: {
     external: ['mock-aws-s3', 'aws-sdk', 'nock', 'argon2']
   },
+  define: {
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+  }
 })
