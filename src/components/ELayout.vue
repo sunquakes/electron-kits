@@ -39,10 +39,10 @@ options.before = (resolve, reject) => {
   const user = localStorage.getItem('user')
   const currentRoute = computed(() => router.currentRoute.value)
   console.log('currentRoute', currentRoute.value)
-  if (!user) {
-    router.push({ name: 'Login' })
-    reject('No permission.')
-  }
+  // if (!user) {
+  //   router.push({ name: 'Login' })
+  //   reject(new Error('No permission.'))
+  // }
 }
 </script>
 

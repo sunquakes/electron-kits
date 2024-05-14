@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 'calc(100vh - 360px)' }">
+  <a-table :columns="columns" :data-source="list" :scroll="{ x: '100%', y: 'calc(100vh - 360px)' }">
     <template #bodyCell="{ column }">
       <template v-if="column.key === 'operation'">
         <a>action</a>
@@ -9,22 +9,15 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
 import { getList } from '../api/user'
 
-getList()
-
 const columns: TableColumnsType = [
-  { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
-  { title: 'Age', width: 100, dataIndex: 'age', key: 'age', fixed: 'left' },
-  { title: 'Column 1', dataIndex: 'address', key: '1', width: 150 },
-  { title: 'Column 2', dataIndex: 'address', key: '2', width: 150 },
-  { title: 'Column 3', dataIndex: 'address', key: '3', width: 150 },
-  { title: 'Column 4', dataIndex: 'address', key: '4', width: 150 },
-  { title: 'Column 5', dataIndex: 'address', key: '5', width: 150 },
-  { title: 'Column 6', dataIndex: 'address', key: '6', width: 150 },
-  { title: 'Column 7', dataIndex: 'address', key: '7', width: 150 },
-  { title: 'Column 8', dataIndex: 'address', key: '8' },
+  { title: 'ID', width: 50, dataIndex: 'id', key: 'id', fixed: 'left' },
+  { title: 'Username', width: 100, dataIndex: 'username', key: 'username', fixed: 'left' },
+  { title: 'Create Time', width: 100, dataIndex: 'create_time', key: 'create_time', fixed: 'left' },
+  { title: 'Update Time', width: 100, dataIndex: 'update_time', key: 'update_time', fixed: 'left' },
   {
     title: 'Action',
     key: 'operation',
@@ -34,20 +27,15 @@ const columns: TableColumnsType = [
 ]
 
 interface DataItem {
-  key: number
-  name: string
-  age: number
-  address: string
+  id: number
+  username: string
+  state: number
+  create_time: string
+  update_time: string
 }
 
-const list: DataItem[] = []
-for (let i = 0; i < 100; i++) {
-  list.push({
-    key: i,
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`
-  })
-}
-const data = list
+const list = ref<DataItem[]>([])
+onMounted(async () => {
+  list.value = await getList()
+})
 </script>
