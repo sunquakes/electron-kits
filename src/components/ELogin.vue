@@ -12,6 +12,8 @@
         <a-form-item
           name="username"
           :rules="[{ required: true, message: t('login.username_required') }]"
+          :validateStatus="usernameError ? 'error' : ''"
+          :help="usernameError"
         >
           <a-input :placeholder="t('login.username')" v-model:value="formState.username">
             <template #prefix>
@@ -23,6 +25,8 @@
         <a-form-item
           name="password"
           :rules="[{ required: true, message: t('login.password_required') }]"
+          :validateStatus="passwordError ? 'error' : ''"
+          :help="passwordError"
         >
           <a-input-password :placeholder="t('login.password')" v-model:value="formState.password">
             <template #prefix>
@@ -49,10 +53,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch, ref } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import router from '../router'
 import { useI18n } from 'vue-i18n'
+import { login } from '../api/user'
 
 const { t } = useI18n({ useScope: 'global' })
 
@@ -66,9 +71,39 @@ const formState = reactive<FormState>({
   password: '',
   remember: true
 })
-const onFinish = (values: any) => {
-  router.push({ path: '/' })
-  console.log('Success:', values)
+
+watch(
+  () => formState.username,
+  (_val) => {
+    usernameError.value = ''
+  }
+)
+
+watch(
+  () => formState.password,
+  (_val) => {
+    passwordError.value = ''
+  }
+)
+
+const usernameError = ref('')
+const passwordError = ref('')
+
+const onFinish = async (values: any) => {
+  const user = await login(formState.username, formState.password)
+  if (user instanceof Error) {
+    if (user.message === 'login.username_not_exist') {
+      usernameError.value = t(user.message)
+      return
+    }
+    if (user.message === 'login.wrong_password') {
+      passwordError.value = t(user.message)
+      return
+    }
+  } else {
+    router.push({ path: '/' })
+    console.log('Success:', values)
+  }
 }
 
 const onFinishFailed = (errorInfo: any) => {

@@ -8,10 +8,12 @@ export default {
     username: '用户名',
     password: '密码',
     username_required: '请输入用户名！',
-    password_required: '请输入密码！'
+    password_required: '请输入密码！',
+    username_not_exist: '用户名不存在！',
+    wrong_password: '密码错误！'
   },
   line_one: '浮世三千，吾爱有三，',
   line_two: '日，月与卿。',
   line_three: '日为朝，月为暮，',
-  line_four: '卿为朝朝暮暮。',
+  line_four: '卿为朝朝暮暮。'
 }

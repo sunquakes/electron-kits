@@ -8,7 +8,9 @@ export default {
     username: 'Username',
     password: 'Password',
     username_required: 'Please input your username!',
-    password_required: 'Please input your password!'
+    password_required: 'Please input your password!',
+    username_not_exist: 'Username does not exist!',
+    wrong_password: 'Wrong password!'
   },
   line_one: 'I love three things in this world,',
   line_two: 'the sun, the moon and you.',

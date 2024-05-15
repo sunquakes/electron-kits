@@ -38,11 +38,11 @@ const router = useRouter()
 options.before = (resolve, reject) => {
   const user = localStorage.getItem('user')
   const currentRoute = computed(() => router.currentRoute.value)
-  console.log('currentRoute', currentRoute.value)
-  // if (!user) {
-  //   router.push({ name: 'Login' })
-  //   reject(new Error('No permission.'))
-  // }
+  console.log('currentRoute', currentRoute.value.name, !['Login'].includes(currentRoute.value.name))
+  if (!user && !['Login'].includes(currentRoute.value.name)) {
+    router.push({ name: 'Login' })
+    reject(new Error('No permission.'))
+  }
 }
 </script>
 
