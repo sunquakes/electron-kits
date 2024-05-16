@@ -27,19 +27,22 @@ import { ref, computed } from 'vue'
 import { options } from '../db/sqlite3'
 
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 const collapsed = ref<boolean>(false)
 const currentMenu = ref<string>('Dashboard')
 
 // Get the current router object
 const router = useRouter()
+const store = useStore()
 
 // Permission
 options.before = (resolve, reject) => {
-  const user = localStorage.getItem('user')
-  const currentRoute = computed(() => router.currentRoute.value)
-  console.log('currentRoute', currentRoute.value.name, !['Login'].includes(currentRoute.value.name))
-  if (!user && !['Login'].includes(currentRoute.value.name)) {
+  const user = store.getters.user
+  console.log('user', user)
+  const currentRoute = router.currentRoute.value
+  if (!user && !['Login'].includes(currentRoute.name)) {
+    // Route to the login page.
     router.push({ name: 'Login' })
     reject(new Error('No permission.'))
   }

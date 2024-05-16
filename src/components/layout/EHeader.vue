@@ -12,11 +12,7 @@
       <template #extra>
         <a-button key="3">Operation</a-button>
         <a-button key="2">Operation</a-button>
-        <a-select
-          v-model:value="locale"
-          style="width: 90px"
-          :options="langOptions"
-        ></a-select>
+        <a-select v-model:value="locale" style="width: 90px" :options="langOptions"></a-select>
         <a-dropdown key="more">
           <a-button :style="{ border: 'none', padding: 0 }">
             <EllipsisOutlined :style="{ fontSize: '20px', verticalAlign: 'top' }" />
@@ -38,8 +34,12 @@ import { EllipsisOutlined } from '@ant-design/icons-vue'
 import type { SelectProps } from 'ant-design-vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const { locale } = useI18n({ useScope: 'global' })
+const router = useRouter()
+const store = useStore()
 
 const langOptions = ref<SelectProps['options']>([
   {
@@ -53,7 +53,9 @@ const langOptions = ref<SelectProps['options']>([
 ])
 
 const logout = () => {
-  console.log('logout')
+  // Remove login user info and route to the login page.
+  store.dispatch('removeUser')
+  router.push({ name: 'Login' })
 }
 const profile = () => {
   console.log('profile')

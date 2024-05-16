@@ -58,8 +58,10 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import router from '../router'
 import { useI18n } from 'vue-i18n'
 import { login } from '../api/user'
+import { useStore } from 'vuex'
 
 const { t } = useI18n({ useScope: 'global' })
+const store = useStore()
 
 interface FormState {
   username: string
@@ -101,6 +103,7 @@ const onFinish = async (values: any) => {
       return
     }
   } else {
+    store.dispatch('setUser', user)
     router.push({ path: '/' })
     console.log('Success:', values)
   }
