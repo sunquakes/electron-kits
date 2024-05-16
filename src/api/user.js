@@ -1,7 +1,7 @@
 import { execute, save, list, getOne, updateById, remove } from '../db/sqlite3'
 import CryptoJS from 'crypto-js'
 
-export async function getList() {
+export async function userList() {
   return list('user')
 }
 
@@ -15,4 +15,8 @@ export async function login(username, password) {
     return new Error('login.wrong_password')
   }
   return user
+}
+
+export async function userRemove(where) {
+  return remove('user', where)
 }

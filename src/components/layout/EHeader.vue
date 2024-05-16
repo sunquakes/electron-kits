@@ -27,19 +27,22 @@
       </template>
     </a-page-header>
   </a-layout-header>
+  <contextHolder />
 </template>
 
 <script lang="ts" setup>
-import { EllipsisOutlined } from '@ant-design/icons-vue'
+import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import type { SelectProps } from 'ant-design-vue'
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { Modal } from 'ant-design-vue'
 
-const { locale } = useI18n({ useScope: 'global' })
+const { t, locale } = useI18n({ useScope: 'global' })
 const router = useRouter()
 const store = useStore()
+const [modal, contextHolder] = Modal.useModal()
 
 const langOptions = ref<SelectProps['options']>([
   {
@@ -53,10 +56,18 @@ const langOptions = ref<SelectProps['options']>([
 ])
 
 const logout = () => {
-  // Remove login user info and route to the login page.
-  store.dispatch('removeUser')
-  router.push({ name: 'Login' })
+  console.log(2)
+  modal.confirm({
+    title: t('logout.confirm'),
+    icon: h(ExclamationCircleOutlined),
+    onOk() {
+      // Remove login user info and route to the login page.
+      store.dispatch('removeUser')
+      router.push({ name: 'Login' })
+    }
+  })
 }
+
 const profile = () => {
   console.log('profile')
 }

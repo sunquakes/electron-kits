@@ -1,8 +1,17 @@
 <template>
   <a-table :columns="columns" :data-source="list" :scroll="{ x: '100%', y: 'calc(100vh - 360px)' }">
-    <template #bodyCell="{ column }">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operation'">
-        <a>action</a>
+        <a href="#">{{ t('action.edit') }}</a>
+        <a-divider type="vertical" />
+        <a-popconfirm
+          :title="t('confirm.delete')"
+          :ok-text="t('button.ok')"
+          :cancel-text="t('button.no')"
+          @confirm="deleteConfirm(record)"
+        >
+          <a href="#">{{ t('action.delete') }}</a>
+        </a-popconfirm>
       </template>
     </template>
   </a-table>
@@ -11,7 +20,10 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
-import { getList } from '../api/user'
+import { userList, userRemove } from '../api/user'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({ useScope: 'global' })
 
 const columns: TableColumnsType = [
   { title: 'ID', width: 50, dataIndex: 'id', key: 'id', fixed: 'left' },
@@ -36,6 +48,15 @@ interface DataItem {
 
 const list = ref<DataItem[]>([])
 onMounted(async () => {
-  list.value = await getList()
+  handleList()
 })
+
+const handleList = async () => {
+  list.value = await userList()
+}
+
+const deleteConfirm = async (record) => {
+  await userRemove([['id', record.id]])
+  handleList()
+}
 </script>
