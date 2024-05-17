@@ -23,7 +23,7 @@ import EBreadCrumb from './layout/EBreadCrumb.vue'
 import EMenu from './layout/EMenu.vue'
 import EHeader from './layout/EHeader.vue'
 import EFooter from './layout/EFooter.vue'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { options } from '../db/sqlite3'
 
 import { useRouter } from 'vue-router'

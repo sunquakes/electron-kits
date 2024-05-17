@@ -1,4 +1,4 @@
-import { execute, save, list, getOne, updateById, remove } from '../db/sqlite3'
+import { list, getOne, remove } from '../db/sqlite3'
 import CryptoJS from 'crypto-js'
 
 export async function userList() {
