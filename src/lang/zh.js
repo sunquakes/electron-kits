@@ -1,4 +1,3 @@
-// sonar-ignore-start
 export default {
   action: {
     delete: '删除',
@@ -18,11 +17,11 @@ export default {
   },
   login: {
     username: '用户名',
-    password: '密码',
+    password: '密码', // NOSONAR
     username_required: '请输入用户名！',
-    password_required: '请输入密码！',
+    password_required: '请输入密码！', // NOSONAR
     username_not_exist: '用户名不存在！',
-    wrong_password: '密码错误！'
+    wrong_password: '密码错误！' // NOSONAR
   },
   logout: {
     confirm: '确定退出登录？'

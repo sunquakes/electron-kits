@@ -18,11 +18,11 @@ export default {
   },
   login: {
     username: 'Username',
-    password: 'Password',
+    password: 'Password', // NOSONAR
     username_required: 'Please input your username!',
-    password_required: 'Please input your password!',
+    password_required: 'Please input your password!', // NOSONAR
     username_not_exist: 'Username does not exist!',
-    wrong_password: 'Wrong password!'
+    wrong_password: 'Wrong password!' // NOSONAR
   },
   logout: {
     confirm: 'Do you want to logout?'
