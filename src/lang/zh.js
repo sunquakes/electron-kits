@@ -31,4 +31,3 @@ export default {
   line_three: '日为朝，月为暮，',
   line_four: '卿为朝朝暮暮。'
 }
-// sonar-ignore-end
