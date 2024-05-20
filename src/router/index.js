@@ -2,9 +2,9 @@ import { h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 import StrayBirds from '../components/StrayBirds.vue'
-import ELayout from '../components/ELayout.vue'
+import Layout from '../components/Layout.vue'
 import User from '../components/User.vue'
-import ELogin from '../components/ELogin.vue'
+import Login from '../components/Login.vue'
 
 import {
   DashboardOutlined,
@@ -12,10 +12,10 @@ import {
 } from '@ant-design/icons-vue'
 
 const routes = [
-  { name: 'Login', path: '/login', component: ELogin },
+  { name: 'Login', path: '/login', component: Login },
   {
     path: '/',
-    component: ELayout,
+    component: Layout,
     children: [
       {
         name: 'Dashboard',

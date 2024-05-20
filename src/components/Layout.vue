@@ -1,28 +1,28 @@
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
-      <ELogo :collapsed="collapsed"></ELogo>
-      <EMenu v-model="currentMenu"></EMenu>
+      <Logo :collapsed="collapsed"></Logo>
+      <Menu v-model="currentMenu"></Menu>
     </a-layout-sider>
     <a-layout>
-      <EHeader />
+      <Header />
       <a-layout-content style="margin: 0 16px">
-        <EBreadCrumb v-model="currentMenu" />
+        <BreadCrumb v-model="currentMenu" />
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
           <router-view></router-view>
         </div>
       </a-layout-content>
-      <EFooter></EFooter>
+      <Footer></Footer>
     </a-layout>
   </a-layout>
 </template>
 
 <script lang="ts" setup>
-import ELogo from './layout/ELogo.vue'
-import EBreadCrumb from './layout/EBreadCrumb.vue'
-import EMenu from './layout/EMenu.vue'
-import EHeader from './layout/EHeader.vue'
-import EFooter from './layout/EFooter.vue'
+import Logo from './layout/Logo.vue'
+import BreadCrumb from './layout/BreadCrumb.vue'
+import Menu from './layout/Menu.vue'
+import Header from './layout/Header.vue'
+import Footer from './layout/Footer.vue'
 import { ref } from 'vue'
 import { options } from '../db/sqlite3'
 
@@ -39,12 +39,11 @@ const store = useStore()
 // Permission
 options.before = (resolve, reject) => {
   const user = store.getters.user
-  console.log('user', user)
   const currentRoute = router.currentRoute.value
   if (!user && !['Login'].includes(currentRoute.name)) {
     // Route to the login page.
-    router.push({ name: 'Login' })
-    reject(new Error('No permission.'))
+    // router.push({ name: 'Login' })
+    // reject(new Error('No permission.'))
   }
 }
 </script>

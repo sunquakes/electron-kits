@@ -1,15 +1,35 @@
 // sonar-ignore-start
 export default {
+  title: {
+    add: 'Add',
+    edit: 'Edit'
+  },
   action: {
     delete: 'Delete',
-    edit: 'Edit'
+    add: 'Add',
+    edit: 'Edit',
+    search: 'Search',
+    reset: 'Reset'
   },
   button: {
     ok: 'Ok',
-    no: 'No',
+    no: 'No'
   },
   confirm: {
     delete: 'Are you sure delete this record?'
+  },
+  message: {
+    add: {
+      success: 'Add successful!',
+      fail: 'Add failed!'
+    },
+    edit: {
+      success: 'Edit successful!',
+      fail: 'Edit failed!'
+    }
+  },
+  form: {
+    required: 'Please input your {0}!'
   },
   menu: {
     dashboard: 'Dashboard',
@@ -23,6 +43,11 @@ export default {
     password_required: 'Please input your password!', // NOSONAR
     username_not_exist: 'Username does not exist!',
     wrong_password: 'Wrong password!' // NOSONAR
+  },
+  user: {
+    username: 'Username',
+    nickname: 'Nickname',
+    password: 'Password' // NOSONAR
   },
   logout: {
     confirm: 'Do you want to logout?'

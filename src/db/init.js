@@ -5,6 +5,7 @@ export function init() {
                             id Integer PRIMARY KEY AUTOINCREMENT,
                             username VARCHAR(255) NOT NULL DEFAULT "",
                             password VARCHAR(255) NOT NULL DEFAULT "",
+                            nickname VARCHAR(255) NOT NULL DEFAULT "",
                             state Integer NOT NULL DEFAULT 0,
                             create_time DATETIME,
                             update_time DATETIME
@@ -15,6 +16,6 @@ export function init() {
   execute(createUniqueIndexSql)
 
   // Insert a user record, the username is `admin`, the password is `admin`.
-  const insertSql = `INSERT INTO user (username, password, state, create_time, update_time) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 1, CURRENT_TIMESTAMP, null);`
+  const insertSql = `INSERT INTO user (username, password, nickname, state, create_time, update_time) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrator', 1, CURRENT_TIMESTAMP, null);`
   execute(insertSql)
 }

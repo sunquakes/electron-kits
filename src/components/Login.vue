@@ -2,13 +2,7 @@
   <a-row>
     <a-col class="left" :span="16"></a-col>
     <a-col class="right" :span="8">
-      <a-form
-        :model="formState"
-        name="normal_login"
-        class="login-form"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-      >
+      <a-form :model="formState" name="normal_login" class="login-form" @finish="handleSubmit">
         <a-form-item
           name="username"
           :rules="[{ required: true, message: t('login.username_required') }]"
@@ -91,7 +85,7 @@ watch(
 const usernameError = ref('')
 const passwordError = ref('')
 
-const onFinish = async (values: any) => {
+const handleSubmit = async (values: any) => {
   const user = await login(formState.username, formState.password)
   if (user instanceof Error) {
     if (user.message === 'login.username_not_exist') {
@@ -105,16 +99,8 @@ const onFinish = async (values: any) => {
   } else {
     store.dispatch('setUser', user)
     router.push({ path: '/' })
-    console.log('Success:', values)
   }
 }
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo)
-}
-const disabled = computed(() => {
-  return !(formState.username && formState.password)
-})
 </script>
 
 <style lang="scss" scoped>

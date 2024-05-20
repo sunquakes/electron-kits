@@ -86,7 +86,7 @@ export async function updateById(tableName, id, data) {
       if (err != null) {
         reject(new Error(err))
       } else {
-        resolve(this.lastID)
+        resolve(id)
       }
     })
   })
@@ -110,6 +110,23 @@ export async function list(tableName, where, orderBy, offset, limit) {
         reject(new Error(err))
       } else {
         resolve(rows)
+      }
+    })
+  })
+}
+
+export async function count(tableName, where) {
+  let sql = `SELECT COUNT(*) AS count FROM ${tableName}`
+  if (where) {
+    sql = parseWhere(sql, where)
+  }
+  const db = await getDb()
+  return await new Promise((resolve, reject) => {
+    db.get(sql, (err, row) => {
+      if (err != null) {
+        reject(new Error(err))
+      } else {
+        resolve(row.count)
       }
     })
   })
