@@ -76,7 +76,7 @@ const formState = reactive({
 
 const initPagination: Pagination = {
   current: 1,
-  pageSize: 1
+  pageSize: 5
 }
 
 const pagination = reactive({ ...initPagination })

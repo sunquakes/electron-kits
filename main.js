@@ -8,8 +8,8 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    minWidth: 1024,
+    minHeight: 768,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

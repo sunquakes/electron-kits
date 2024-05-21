@@ -1,17 +1,14 @@
 <template>
   <a-layout-header style="background: #fff; padding: 0">
     <a-page-header
-      title="Title"
+      :title="nickname"
       class="site-page-header"
-      sub-title="This is a subtitle"
       :avatar="{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }"
     >
       <template #tags>
-        <a-tag color="blue">Running</a-tag>
+        <a-tag color="green">online</a-tag>
       </template>
       <template #extra>
-        <a-button key="3">Operation</a-button>
-        <a-button key="2">Operation</a-button>
         <a-select v-model:value="locale" style="width: 90px" :options="langOptions"></a-select>
         <a-dropdown key="more">
           <a-button :style="{ border: 'none', padding: 0 }">
@@ -33,7 +30,7 @@
 <script lang="ts" setup>
 import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import type { SelectProps } from 'ant-design-vue'
-import { ref, h } from 'vue'
+import { ref, h, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -43,6 +40,8 @@ const { t, locale } = useI18n({ useScope: 'global' })
 const router = useRouter()
 const store = useStore()
 const [modal, contextHolder] = Modal.useModal()
+
+const nickname = reactive<string>(store.getters.user?.nickname)
 
 const langOptions = ref<SelectProps['options']>([
   {
@@ -56,7 +55,6 @@ const langOptions = ref<SelectProps['options']>([
 ])
 
 const logout = () => {
-  console.log(2)
   modal.confirm({
     title: t('logout.confirm'),
     icon: h(ExclamationCircleOutlined),
