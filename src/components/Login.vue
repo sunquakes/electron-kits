@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, watch, ref } from 'vue'
+import { reactive, watch, ref } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import router from '../router'
 import { useI18n } from 'vue-i18n'

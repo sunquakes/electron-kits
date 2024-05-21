@@ -25,9 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, defineModel, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { defineModel, watch } from 'vue'
 import { add, edit } from '../../api/user'
 import { message } from 'ant-design-vue'
 
@@ -69,7 +68,7 @@ const user: User = {
   password: undefined
 }
 
-let formState = ref<User>(Object.assign({}, user))
+let formState = ref<User>({ ...user })
 
 const formRef = ref(null)
 const handleSubmit = async (values: any) => {
@@ -111,10 +110,10 @@ const onClose = () => {
 
 const resetFormState = (data) => {
   if (data == null) {
-    formState.value = Object.assign({}, user)
+    formState.value = { ...user }
   } else {
     data.password = ''
-    formState.value = Object.assign({}, data)
+    formState.value = { ...data }
   }
 }
 

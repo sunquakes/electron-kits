@@ -1,4 +1,4 @@
-import { execute, save, list, count, getOne, updateById, remove } from '../src/db/sqlite3'
+import { execute, save, list, page, count, getOne, updateById, remove } from '../src/db/sqlite3'
 
 test('Create Table', () => {
   const sql =
@@ -31,8 +31,12 @@ test('CRUD', async () => {
   expect(row.content).toBe('Hello China!')
 
   // Test records count.
-  const c = await count('test')
-  expect(c).toBeGreaterThan(0)
+  const total = await count('test')
+  expect(total).toBeGreaterThan(0)
+
+  // Test page.
+  const pageList = await page('test')
+  expect(pageList.total).toBeGreaterThan(0)
 
   // Test delete records.
   remove('test', ['id', insertId])

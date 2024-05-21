@@ -193,3 +193,10 @@ export async function remove(tableName, where) {
     })
   })
 }
+
+export async function page(tableName, current, pageSize, where, orderBy) {
+  const offset = (current - 1) * pageSize
+  const total = await count(tableName, where)
+  const records = await list(tableName, where, orderBy, offset, pageSize)
+  return { current, pageSize, total, records }
+}

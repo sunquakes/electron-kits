@@ -1,5 +1,11 @@
 <template>
-  <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState">
+  <a-form
+    ref="formRef"
+    name="advanced_search"
+    class="ant-advanced-search-form"
+    :model="formState"
+    @finish="handleSearch"
+  >
     <a-row :gutter="24">
       <a-col :span="8">
         <a-form-item name="nickname" :label="t('user.nickname')">
@@ -24,7 +30,13 @@
       </a-col>
     </a-row>
   </a-form>
-  <a-table :columns="columns" :data-source="list" :scroll="{ x: '100%', y: 'calc(100vh - 360px)' }">
+  <a-table
+    :columns="columns"
+    :data-source="list"
+    :scroll="{ x: '100%', y: 'calc(100vh - 360px)' }"
+    :pagination="pagination"
+    @change="handlePage"
+  >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'operation'">
         <a href="#" @click="handleEdit(record)">{{ t('action.edit') }}</a>
@@ -51,13 +63,23 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive } from 'vue'
-import type { TableColumnsType, FormInstance } from 'ant-design-vue'
-import { page, del } from '../api/user'
+import type { TableColumnsType, FormInstance, Pagination } from 'ant-design-vue'
+import { pageList, del } from '../api/user'
 import { useI18n } from 'vue-i18n'
 import Form from './user/Form.vue'
 
 const formRef = ref<FormInstance>()
-const formState = reactive({})
+const formState = reactive({
+  username: undefined,
+  nickname: undefined
+})
+
+const initPagination: Pagination = {
+  current: 1,
+  pageSize: 1
+}
+
+const pagination = reactive({ ...initPagination })
 
 const { t } = useI18n({ useScope: 'global' })
 
@@ -88,8 +110,31 @@ onMounted(async () => {
   handlePage()
 })
 
-const handlePage = async () => {
-  list.value = await page()
+const handleSearch = () => {
+  Object.assign(pagination, initPagination)
+  handlePage()
+}
+
+const parseWhere = (): [] => {
+  const where = []
+  for (let key in formState) {
+    if (formState[key]) {
+      where.push([key, 'LIKE', `%${formState[key]}%`])
+    }
+  }
+  return where
+}
+
+const handlePage = async (p) => {
+  if (p) {
+    Object.assign(pagination, p)
+  } else {
+    Object.assign(pagination, initPagination)
+  }
+  const where = parseWhere()
+  const result = await pageList(pagination.current, pagination.pageSize, where)
+  list.value = result.records
+  pagination.total = result.total
 }
 
 const handleDel = async (record) => {
@@ -97,10 +142,10 @@ const handleDel = async (record) => {
   handlePage()
 }
 
-const open = ref<Boolean>(false)
+const open = ref<boolean>(false)
 const item = ref(null)
 
-const formTitle = ref<String>('')
+const formTitle = ref<string>('')
 
 const handleAdd = () => {
   formTitle.value = t('title.add')

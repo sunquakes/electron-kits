@@ -1,11 +1,11 @@
-import { list, getOne, remove, save, updateById } from '../db/sqlite3'
+import { page, getOne, remove, save, updateById } from '../db/sqlite3'
 import CryptoJS from 'crypto-js'
 import { datetime } from '../utils/date'
 
 const TABLE_NAME = 'user'
 
-export async function page() {
-  return list(TABLE_NAME)
+export async function pageList(current, pageSize, where, orderBy) {
+  return page(TABLE_NAME, current, pageSize, where, orderBy)
 }
 
 export async function login(username, password) {
