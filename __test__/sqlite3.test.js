@@ -1,6 +1,17 @@
-import { execute, save, list, page, count, getOne, updateById, remove } from '../src/db/sqlite3'
+import sqlite3 from 'sqlite3'
+import sqlite3Rewire, {
+  options,
+  execute,
+  save,
+  list,
+  page,
+  count,
+  getOne,
+  updateById,
+  remove
+} from '../src/db/sqlite3'
 
-test('Create Table', () => {
+test('Test Create Table', async () => {
   const sql =
     'CREATE TABLE IF NOT EXISTS test (' +
     'id Integer PRIMARY KEY AUTOINCREMENT,' +
@@ -11,7 +22,13 @@ test('Create Table', () => {
   })
 })
 
-test('CRUD', async () => {
+test('Test options', async () => {
+  expect(options.db).toBeInstanceOf(sqlite3.Database)
+  options.before = () => {}
+  options.after = () => {}
+})
+
+test('Test CRUD', async () => {
   // Test insert.
   const insertId = await save('test', { content: 'Hello World!' })
   expect(insertId).toBeGreaterThan(0)

@@ -14,19 +14,14 @@ const getDb = async () => {
     } else {
       options.db = new sqlite3.Database(dbFile, (err) => {
         if (err !== null) {
+          console.log(666)
           options.db = new sqlite3.Database(':memory:')
-          if (options.after != undefined && typeof options.after == 'function') {
-            options.after(resolve, reject)
-          }
-          return resolve(options.db)
+          resolve(options.db)
         }
       })
       resolve(options.db)
     }
   })
-  if (options.after != undefined && typeof options.after == 'function') {
-    options.after(resolve, reject)
-  }
   return res
 }
 
