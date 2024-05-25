@@ -9,8 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, watch, h, defineModel } from 'vue'
+import { reactive, watch, ref, h, defineModel } from 'vue'
 import router from '../../router'
+import { useI18n } from 'vue-i18n'
+import { RouteRecord } from 'vue-router'
+const { t, locale } = useI18n({ useScope: 'global' })
 
 const model = defineModel({ required: true })
 
@@ -40,13 +43,10 @@ const getMenu = (list: RouteRecord[]) => {
   let menu = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
-      let menuItem
-      if (item.children != undefined && item.children.length > 0) {
-        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon), getMenu(item.children))
-      } else {
-        menuItem = getItem(item.meta.title, item.name, h(item.meta.icon))
+      const menuItem = getMenuItem(item)
+      if (menuItem != undefined) {
+        menu.push(menuItem)
       }
-      menu.push(menuItem)
     }
   }
   // Get the children if there is no menu.
@@ -54,6 +54,22 @@ const getMenu = (list: RouteRecord[]) => {
     menu = getMenuChildren(list)
   }
   return menu
+}
+
+const getMenuItem = (item: RouteRecord) => {
+  let menuItem
+  if (item.children != undefined && item.children.length > 0) {
+    menuItem = getItem(
+      t(item.meta.title),
+      item.name,
+      item?.meta?.icon ? h(item.meta.icon) : null,
+      getMenu(item.children)
+    )
+  } else {
+    menuItem = getItem(t(item.meta.title), item.name, item?.meta?.icon ? h(item.meta.icon) : null)
+  }
+
+  return menuItem
 }
 
 const getMenuChildren = (list: RouteRecord[]) => {
@@ -68,12 +84,20 @@ const getMenuChildren = (list: RouteRecord[]) => {
 
 watch(
   () => state.selectedKeys,
-  (_val, oldVal) => {
+  (_val) => {
     console.log('_val', _val)
   }
 )
 
-const items = getMenu(list)
+const items = ref<ItemType[]>()
+items.value = getMenu(list)
+
+watch(
+  () => locale.value,
+  (_val) => {
+    items.value = getMenu(list)
+  }
+)
 
 router.push({ name: model.value })
 

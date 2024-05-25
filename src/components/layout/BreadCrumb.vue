@@ -8,8 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, defineModel } from 'vue'
+import { watch, defineModel, ref } from 'vue'
 import router from '../../router'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n({ useScope: 'global' })
 
 interface Route {
   path: string
@@ -22,11 +24,11 @@ interface Route {
 
 const list = router.options.routes
 
-const getMenu = (list: RouteRecord[], name: string): Route[] => {
+const getMenu = (list: RouteRecord[], name: string): Route[] | undefined => {
   let breadcrumb = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
-      breadcrumb.push({ path: item.path, breadcrumbName: item.meta.title })
+      breadcrumb.push({ path: item.path, breadcrumbName: t(item.meta.title) })
       if (item.name == name) {
         return breadcrumb
       }
@@ -44,11 +46,20 @@ const getMenu = (list: RouteRecord[], name: string): Route[] => {
 
 const model = defineModel({ required: true })
 
-let items = getMenu(list, model.value)
+const items = ref<Route[]>()
+items.value = getMenu(list, model.value)
+
+watch(
+  () => locale.value,
+  (_val) => {
+    items.value = getMenu(list, model.value)
+  }
+)
+
 watch(
   () => model.value,
   (_val) => {
-    items = getMenu(list, model.value)
+    items.value = getMenu(list, model.value)
   }
 )
 </script>

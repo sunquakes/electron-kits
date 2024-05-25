@@ -2,9 +2,9 @@ import { h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 import StrayBirds from '../components/StrayBirds.vue'
-import ELayout from '../components/ELayout.vue'
+import Layout from '../components/Layout.vue'
 import User from '../components/User.vue'
-import ELogin from '../components/ELogin.vue'
+import Login from '../components/Login.vue'
 
 import {
   DashboardOutlined,
@@ -12,26 +12,26 @@ import {
 } from '@ant-design/icons-vue'
 
 const routes = [
-  { name: 'Login', path: '/login', component: ELogin },
+  { name: 'Login', path: '/login', component: Login },
   {
     path: '/',
-    component: ELayout,
+    component: Layout,
     children: [
       {
         name: 'Dashboard',
         path: '/dashboard',
         component: StrayBirds,
-        meta: { isMenu: true, title: '首页', icon: DashboardOutlined }
+        meta: { isMenu: true, title: 'menu.dashboard', icon: DashboardOutlined }
       },
       {
         name: 'System',
         path: '/system',
-        meta: { isMenu: true, title: '系统管理', icon: SettingOutlined },
+        meta: { isMenu: true, title: 'menu.system', icon: SettingOutlined },
         children: [
           {
             name: 'User',
             path: '/user',
-            meta: { isMenu: true, title: '系统用户' },
+            meta: { isMenu: true, title: 'menu.system_user' },
             component: User 
           }
         ]

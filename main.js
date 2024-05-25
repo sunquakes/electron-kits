@@ -1,13 +1,15 @@
-const { app, BrowserWindow, globalShortcut, Menu } = require('electron')
+const { app, BrowserWindow, globalShortcut, Menu, ipcRenderer } = require('electron')
 const path = require('path')
 
 const NODE_ENV = process.env.NODE_ENV
 console.log('NODE_ENV', NODE_ENV)
 
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    minWidth: 1024,
+    minHeight: 768,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
