@@ -1,5 +1,5 @@
 const path = require('path')
-const sqlite3 = require('sqlite3').verbose()
+const sqlite3 = require('sqlite3')
 const dbFile = path.join(process.resourcesPath || '', 'sqlite3.db')
 
 export const options = { db: undefined, before: undefined, after: undefined }
@@ -14,7 +14,6 @@ const getDb = async () => {
     } else {
       options.db = new sqlite3.Database(dbFile, (err) => {
         if (err !== null) {
-          console.log(666)
           options.db = new sqlite3.Database(':memory:')
           resolve(options.db)
         }
