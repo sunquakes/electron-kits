@@ -25,6 +25,7 @@ Object.defineProperty(window, 'matchMedia', {
 })
 
 test('Test Layout.vue', async () => {
+  await router.push({ name: 'User' })
   const wrapper = mount(Layout, {
     propsData: {},
     global: {
@@ -38,6 +39,5 @@ test('Test Layout.vue', async () => {
       }
     }
   })
-  await router.isReady()
   expect(wrapper.exists()).toBe(true)
 })

@@ -41,7 +41,7 @@ const router = useRouter()
 const store = useStore()
 const [modal, contextHolder] = Modal.useModal()
 
-const nickname = reactive<string>(store.getters.user?.nickname)
+const nickname = ref<string>(store.getters.user?.nickname || '')
 
 const langOptions = ref<SelectProps['options']>([
   {

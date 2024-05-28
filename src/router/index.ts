@@ -1,15 +1,11 @@
 import { h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-// import StrayBirds from '../components/StrayBirds.vue'
 import Layout from '../components/Layout.vue'
 import User from '../components/User.vue'
 import Login from '../components/Login.vue'
 
-import {
-  DashboardOutlined,
-  SettingOutlined
-} from '@ant-design/icons-vue'
+import { DashboardOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
 const routes = [
   { name: 'Login', path: '/login', component: Login },
@@ -32,7 +28,7 @@ const routes = [
             name: 'User',
             path: '/user',
             meta: { isMenu: true, title: 'menu.system_user' },
-            component: User 
+            component: User
           }
         ]
       }

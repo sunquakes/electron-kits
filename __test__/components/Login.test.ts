@@ -1,6 +1,7 @@
-import { shallowMount } from '@vue/test-utils'
-import User from '../../src/components/User.vue'
+import { mount } from '@vue/test-utils'
+import Login from '../../src/components/Login.vue'
 import Antd from 'ant-design-vue'
+import store from '../../src/store'
 import i18n from '../../src/i18n'
 
 Object.defineProperty(window, 'matchMedia', {
@@ -17,11 +18,11 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-test('Test User.vue', async () => {
-  const wrapper = shallowMount(User, {
+test('Test Login.vue', async () => {
+  const wrapper = mount(Login, {
     propsData: {},
     global: {
-      plugins: [Antd, i18n]
+      plugins: [Antd, store, i18n]
     }
   })
   expect(wrapper.exists()).toBe(true)
