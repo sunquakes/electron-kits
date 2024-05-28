@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-import StrayBirds from '../components/StrayBirds.vue'
+// import StrayBirds from '../components/StrayBirds.vue'
 import Layout from '../components/Layout.vue'
 import User from '../components/User.vue'
 import Login from '../components/Login.vue'
@@ -20,7 +20,7 @@ const routes = [
       {
         name: 'Dashboard',
         path: '/dashboard',
-        component: StrayBirds,
+        component: User,
         meta: { isMenu: true, title: 'menu.dashboard', icon: DashboardOutlined }
       },
       {

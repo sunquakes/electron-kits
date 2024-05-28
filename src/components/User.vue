@@ -24,7 +24,7 @@
       </a-col>
       <a-col :span="12" style="text-align: right">
         <a-button type="primary" html-type="submit">{{ t('action.search') }}</a-button>
-        <a-button style="margin: 0 8px" @click="() => formRef.resetFields()">{{
+        <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">{{
           t('action.reset')
         }}</a-button>
       </a-col>
@@ -74,7 +74,7 @@ const formState = reactive({
   nickname: undefined
 })
 
-const initPagination: Pagination = {
+const initPagination = {
   current: 1,
   pageSize: 5
 }
@@ -115,7 +115,7 @@ const handleSearch = () => {
   handlePage()
 }
 
-const parseWhere = (): [] => {
+const parseWhere = (): string[][] => {
   const where = []
   for (let key in formState) {
     if (formState[key]) {
@@ -132,9 +132,11 @@ const handlePage = async (p) => {
     Object.assign(pagination, initPagination)
   }
   const where = parseWhere()
-  const result = await pageList(pagination.current, pagination.pageSize, where)
-  list.value = result.records
-  pagination.total = result.total
+  try {
+    const result = await pageList(pagination.current, pagination.pageSize, where)
+    list.value = result.records
+    pagination.total = result.total
+  } catch (e) {}
 }
 
 const handleDel = async (record) => {
@@ -153,7 +155,7 @@ const handleAdd = () => {
   item.value = null
 }
 
-const handleEdit = (record) => {
+const handleEdit = (record: []) => {
   formTitle.value = t('title.edit')
   open.value = true
   item.value = record

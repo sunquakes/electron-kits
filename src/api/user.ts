@@ -4,11 +4,11 @@ import { datetime } from '../utils/date'
 
 const TABLE_NAME = 'user'
 
-export async function pageList(current, pageSize, where, orderBy) {
+export async function pageList(current: number, pageSize: number, where: string[][], orderBy: string): Promise<any> {
   return page(TABLE_NAME, current, pageSize, where, orderBy)
 }
 
-export async function login(username, password) {
+export async function login(username: string, password: string): Promise<any> {
   const user = await getOne(TABLE_NAME, [['username', username]])
   if (!user) {
     return new Error('login.username_not_exist')
@@ -20,11 +20,11 @@ export async function login(username, password) {
   return user
 }
 
-export async function del(where) {
+export async function del(where: string[][]): Promise<any> {
   return remove(TABLE_NAME, where)
 }
 
-export async function edit(id, data) {
+export async function edit(id: number, data: any): Promise<any> {
   if (data.password) {
     const passwordMd5 = CryptoJS.MD5(data.password).toString()
     data.password = passwordMd5
@@ -35,7 +35,7 @@ export async function edit(id, data) {
   return updateById(TABLE_NAME, id, data)
 }
 
-export async function add(data) {
+export async function add(data: any): Promise<any> {
   const passwordMd5 = CryptoJS.MD5(data.password).toString()
   data.password = passwordMd5
   data.create_time = datetime(new Date())

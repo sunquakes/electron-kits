@@ -1,9 +1,16 @@
 module.exports = {
   transform: {
-    '\\.js$': 'babel-jest'
+    "\\.[jt]sx?$": "babel-jest",
+    '^[^.]+.vue$': '@vue/vue3-jest'
   },
+  testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/db/sqlite3.js'],
+  collectCoverageFrom: ['src/**/**.vue', 'src/**/**.js', 'src/**/**.ts'],
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'lcov']
+  coverageReporters: ['text', 'lcov'],
+  moduleFileExtensions: ['vue', 'js', 'ts'],
+  testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons']
+  }
 }
