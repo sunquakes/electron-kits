@@ -63,7 +63,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive } from 'vue'
-import type { TableColumnsType, FormInstance, Pagination } from 'ant-design-vue'
+import type { TableColumnsType, FormInstance } from 'ant-design-vue'
 import { pageList, del } from '../api/user'
 import { useI18n } from 'vue-i18n'
 import Form from './user/Form.vue'

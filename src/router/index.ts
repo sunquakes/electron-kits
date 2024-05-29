@@ -1,4 +1,3 @@
-import { h } from 'vue'
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 import Layout from '../components/Layout.vue'
