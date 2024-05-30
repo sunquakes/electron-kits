@@ -63,13 +63,13 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive } from 'vue'
-import type { TableColumnsType, FormInstance } from 'ant-design-vue'
+import type { TableColumnsType, FormInstance, TablePaginationConfig } from 'ant-design-vue'
 import { pageList, del } from '../api/user'
 import { useI18n } from 'vue-i18n'
 import Form from './user/Form.vue'
 
 const formRef = ref<FormInstance>()
-const formState = reactive({
+const formState = reactive<any>({
   username: undefined,
   nickname: undefined
 })
@@ -79,7 +79,7 @@ const initPagination = {
   pageSize: 5
 }
 
-const pagination = reactive({ ...initPagination })
+const pagination = reactive<Pagination>({ ...initPagination })
 
 const { t } = useI18n({ useScope: 'global' })
 
@@ -96,6 +96,12 @@ const columns: TableColumnsType = [
     width: 100
   }
 ]
+
+interface Pagination {
+  total?: number
+  pageSize: number
+  current: number
+}
 
 interface DataItem {
   id: number
@@ -125,7 +131,7 @@ const parseWhere = (): string[][] => {
   return where
 }
 
-const handlePage = async (p) => {
+const handlePage = async (p?: TablePaginationConfig) => {
   if (p) {
     Object.assign(pagination, p)
   } else {
@@ -139,13 +145,13 @@ const handlePage = async (p) => {
   } catch (e) {}
 }
 
-const handleDel = async (record) => {
+const handleDel = async (record: any) => {
   await del([['id', record.id]])
   handlePage()
 }
 
 const open = ref<boolean>(false)
-const item = ref(null)
+const item = ref()
 
 const formTitle = ref<string>('')
 
@@ -155,7 +161,7 @@ const handleAdd = () => {
   item.value = null
 }
 
-const handleEdit = (record: []) => {
+const handleEdit = (record: Record<string, any>) => {
   formTitle.value = t('title.edit')
   open.value = true
   item.value = record

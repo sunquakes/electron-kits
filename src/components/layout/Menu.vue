@@ -9,19 +9,24 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, watch, ref, h, defineModel } from 'vue'
+import { reactive, watch, ref, h, defineModel, VueElement } from 'vue'
 import router from '../../router'
 import { useI18n } from 'vue-i18n'
-import { RouteRecord } from 'vue-router'
+import { RouteRecord, RouteRecordName } from 'vue-router'
+import { ItemType } from 'ant-design-vue'
+import { Key } from 'ant-design-vue/es/_util/type'
 const { t, locale } = useI18n({ useScope: 'global' })
 
 const model = defineModel({ required: true })
 
 const state = reactive({
-  selectedKeys: [model.value]
+  selectedKeys: [model.value as Key]
 })
 
-const list = router.options.routes
+const routes = router.options.routes
+const list = routes.map((item) => {
+  return { ...item }
+})
 
 function getItem(
   label: VueElement | string,
@@ -39,7 +44,7 @@ function getItem(
   } as ItemType
 }
 
-const getMenu = (list: RouteRecord[]) => {
+const getMenu = (list: RouteRecord[]): any => {
   let menu = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
@@ -60,13 +65,17 @@ const getMenuItem = (item: RouteRecord) => {
   let menuItem
   if (item.children != undefined && item.children.length > 0) {
     menuItem = getItem(
-      t(item.meta.title),
-      item.name,
+      t(item.meta.title as string),
+      item.name as string,
       item?.meta?.icon ? h(item.meta.icon) : null,
-      getMenu(item.children)
+      getMenu(item.children as RouteRecord[])
     )
   } else {
-    menuItem = getItem(t(item.meta.title), item.name, item?.meta?.icon ? h(item.meta.icon) : null)
+    menuItem = getItem(
+      t(item.meta.title as string),
+      item.name as string,
+      item?.meta?.icon ? h(item.meta.icon) : null
+    )
   }
 
   return menuItem
@@ -76,7 +85,7 @@ const getMenuChildren = (list: RouteRecord[]) => {
   let menu = []
   for (let item of list) {
     if (item.children != undefined && item.children.length > 0) {
-      menu = getMenu(item.children)
+      menu = getMenu(item.children as RouteRecord[])
     }
   }
   return menu
@@ -90,19 +99,19 @@ watch(
 )
 
 const items = ref<ItemType[]>()
-items.value = getMenu(list)
+items.value = getMenu(list as RouteRecord[])
 
 watch(
   () => locale.value,
   (_val) => {
-    items.value = getMenu(list)
+    items.value = getMenu(list as RouteRecord[])
   }
 )
 
-router.push({ name: model.value })
+router.push({ name: model.value as RouteRecordName })
 
-const click = (menu) => {
+const click = (menu: any) => {
   model.value = menu.key
-  router.push({ name: menu.key })
+  router.push({ name: menu.key as RouteRecordName })
 }
 </script>

@@ -93,10 +93,10 @@ export async function updateById(tableName: string, id: any, data: any): Promise
 
 export async function list(
   tableName: string,
-  where: string[][],
-  orderBy: string,
-  offset: number,
-  limit: number
+  where?: string[][],
+  orderBy?: string,
+  offset?: number,
+  limit?: number
 ): Promise<any> {
   let sql = `SELECT * FROM ${tableName}`
   if (where) {
@@ -120,7 +120,7 @@ export async function list(
   })
 }
 
-export async function count(tableName: string, where: string[][]): Promise<any> {
+export async function count(tableName: string, where?: string[][]): Promise<any> {
   let sql = `SELECT COUNT(*) AS count FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
@@ -203,8 +203,8 @@ export async function page(
   tableName: string,
   current: number,
   pageSize: number,
-  where: string[][],
-  orderBy: string
+  where?: string[][],
+  orderBy?: string
 ): Promise<any> {
   const offset = (current - 1) * pageSize
   const total = await count(tableName, where)

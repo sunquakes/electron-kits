@@ -40,10 +40,10 @@ const store = useStore()
 options.before = (resolve, reject) => {
   const user = store.getters.user
   const currentRoute = router.currentRoute.value
-  if (!user && !['Login'].includes(currentRoute.name)) {
+  if (!user && !['Login'].includes(currentRoute.name as string)) {
     // Route to the login page.
-    // router.push({ name: 'Login' })
-    // reject(new Error('No permission.'))
+    router.push({ name: 'Login' })
+    reject(new Error('No permission.'))
   }
 }
 </script>

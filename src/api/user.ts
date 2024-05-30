@@ -4,7 +4,7 @@ import { datetime } from '../utils/date'
 
 const TABLE_NAME = 'user'
 
-export async function pageList(current: number, pageSize: number, where: string[][], orderBy: string): Promise<any> {
+export async function pageList(current: number, pageSize: number, where?: string[][], orderBy?: string): Promise<any> {
   return page(TABLE_NAME, current, pageSize, where, orderBy)
 }
 
