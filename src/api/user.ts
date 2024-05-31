@@ -4,7 +4,7 @@ import { datetime } from '../utils/date'
 
 const TABLE_NAME = 'user'
 
-export async function pageList(current: number, pageSize: number, where?: string[][], orderBy?: string): Promise<any> {
+export async function pageList(current: number, pageSize: number, where?: any[][], orderBy?: string): Promise<any> {
   return page(TABLE_NAME, current, pageSize, where, orderBy)
 }
 
@@ -20,7 +20,7 @@ export async function login(username: string, password: string): Promise<any> {
   return user
 }
 
-export async function del(where: string[][]): Promise<any> {
+export async function del(where: any[][]): Promise<any> {
   return remove(TABLE_NAME, where)
 }
 

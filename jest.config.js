@@ -14,7 +14,8 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons']
   },
-  // moduleNameMapper: {
-  //   '\\.(css|less)$': '<rootDir>/__test__/styleMock.ts'
-  // }
+  coveragePathIgnorePatterns: ['.d.ts'],
+  moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/__test__/styleMock.ts'
+  }
 }

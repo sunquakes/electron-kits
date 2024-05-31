@@ -5,7 +5,7 @@ const dbFile = path.join(process?.resourcesPath || '', 'sqlite3.db')
 export const options = {
   db: undefined,
   before: (resolve: any, reject: any) => {},
-  after: undefined
+  after: () => {}
 }
 
 const getDb = async (): Promise<any> => {
@@ -93,7 +93,7 @@ export async function updateById(tableName: string, id: any, data: any): Promise
 
 export async function list(
   tableName: string,
-  where?: string[][],
+  where?: any[][],
   orderBy?: string,
   offset?: number,
   limit?: number
@@ -120,7 +120,7 @@ export async function list(
   })
 }
 
-export async function count(tableName: string, where?: string[][]): Promise<any> {
+export async function count(tableName: string, where?: any[][]): Promise<any> {
   let sql = `SELECT COUNT(*) AS count FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
@@ -137,7 +137,7 @@ export async function count(tableName: string, where?: string[][]): Promise<any>
   })
 }
 
-function parseWhere(sql: string, where: string[][]): string {
+function parseWhere(sql: string, where: any[][]): string {
   let whereArray = []
   for (let item of where) {
     if (!(item instanceof Array)) continue
@@ -165,7 +165,7 @@ function parseWhere(sql: string, where: string[][]): string {
   return sql
 }
 
-export async function getOne(tableName: string, where: string[][]): Promise<any> {
+export async function getOne(tableName: string, where: any[][]): Promise<any> {
   let sql = `SELECT * FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
@@ -182,7 +182,7 @@ export async function getOne(tableName: string, where: string[][]): Promise<any>
   })
 }
 
-export async function remove(tableName: string, where: string[][]): Promise<any> {
+export async function remove(tableName: string, where: any[][]): Promise<any> {
   let sql = `DELETE FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
