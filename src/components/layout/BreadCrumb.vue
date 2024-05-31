@@ -11,6 +11,7 @@
 import { watch, defineModel, ref } from 'vue'
 import router from '../../router'
 import { useI18n } from 'vue-i18n'
+import { RouteRecordRaw } from 'vue-router'
 const { t, locale } = useI18n({ useScope: 'global' })
 
 interface Route {
@@ -22,20 +23,23 @@ interface Route {
   }>
 }
 
-const list = router.options.routes
+const routes = router.options.routes
+const list = routes.map((item) => {
+  return { ...item }
+})
 
-const getMenu = (list: RouteRecord[], name: string): Route[] | undefined => {
+const getMenu = (list: RouteRecordRaw[], name: string): Route[] | undefined => {
   let breadcrumb = []
   for (let item of list) {
     if (item.meta != undefined && item.meta.isMenu) {
-      breadcrumb.push({ path: item.path, breadcrumbName: t(item.meta.title) })
+      breadcrumb.push({ path: item.path, breadcrumbName: t(item.meta.title as string) })
       if (item.name == name) {
         return breadcrumb
       }
     }
     if (item.children != undefined && item.children.length > 0) {
       const children = getMenu(item.children, name)
-      if (children.length > 0) {
+      if (children != undefined && children.length > 0) {
         breadcrumb = breadcrumb.concat(children)
         return breadcrumb
       }
@@ -44,7 +48,7 @@ const getMenu = (list: RouteRecord[], name: string): Route[] | undefined => {
   }
 }
 
-const model = defineModel({ required: true })
+const model = defineModel({ required: true, type: String })
 
 const items = ref<Route[]>()
 items.value = getMenu(list, model.value)

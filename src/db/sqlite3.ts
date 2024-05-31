@@ -1,10 +1,14 @@
-const path = require('path')
 const sqlite3 = require('sqlite3')
-const dbFile = path.join(process.resourcesPath || '', 'sqlite3.db')
+const path = require('path')
+const dbFile = path.join(process?.resourcesPath || '', 'sqlite3.db')
 
-export const options = { db: undefined, before: undefined, after: undefined }
+export const options = {
+  db: undefined,
+  before: (resolve: any, reject: any) => {},
+  after: () => {}
+}
 
-const getDb = async () => {
+const getDb = async (): Promise<any> => {
   const res = await new Promise((resolve, reject) => {
     if (options.before != undefined && typeof options.before == 'function') {
       options.before(resolve, reject)
@@ -12,7 +16,7 @@ const getDb = async () => {
     if (options.db !== undefined) {
       resolve(options.db)
     } else {
-      options.db = new sqlite3.Database(dbFile, (err) => {
+      options.db = new sqlite3.Database(dbFile, (err: string) => {
         if (err !== null) {
           options.db = new sqlite3.Database(':memory:')
           resolve(options.db)
@@ -24,10 +28,10 @@ const getDb = async () => {
   return res
 }
 
-export async function execute(sql) {
+export async function execute(sql: string): Promise<any> {
   const db = await getDb()
-  return await new Promise((resolve, reject) => {
-    db.exec(sql, function (err) {
+  return await new Promise<void>((resolve, reject) => {
+    db.exec(sql, function (err: string) {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -37,7 +41,7 @@ export async function execute(sql) {
   })
 }
 
-export async function save(tableName, data) {
+export async function save(tableName: string, data: any): Promise<any> {
   let fieldArray = []
   let valueArray = []
   for (let key in data) {
@@ -52,18 +56,19 @@ export async function save(tableName, data) {
   let values = '(' + valueArray.join(',') + ')'
   let sql = `INSERT INTO ${tableName} ${fields} VALUES ${values}`
   const db = await getDb()
-  return await new Promise((resolve, reject) => {
-    db.run(sql, function (err) {
+  return await new Promise<number>((resolve, reject) => {
+    db.run(sql, function (err: string) {
       if (err != null) {
         reject(new Error(err))
       } else {
+        // @ts-ignore
         resolve(this.lastID)
       }
     })
   })
 }
 
-export async function updateById(tableName, id, data) {
+export async function updateById(tableName: string, id: any, data: any): Promise<any> {
   let fieldArray = []
   for (let key in data) {
     let value = data[key]
@@ -76,7 +81,7 @@ export async function updateById(tableName, id, data) {
   let sql = `UPDATE ${tableName} SET ${fields} WHERE id = ${id}`
   const db = await getDb()
   return await new Promise((resolve, reject) => {
-    db.run(sql, function (err) {
+    db.run(sql, function (err: string) {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -86,7 +91,13 @@ export async function updateById(tableName, id, data) {
   })
 }
 
-export async function list(tableName, where, orderBy, offset, limit) {
+export async function list(
+  tableName: string,
+  where?: any[][],
+  orderBy?: string,
+  offset?: number,
+  limit?: number
+): Promise<any> {
   let sql = `SELECT * FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
@@ -99,7 +110,7 @@ export async function list(tableName, where, orderBy, offset, limit) {
   }
   const db = await getDb()
   return await new Promise((resolve, reject) => {
-    db.all(sql, (err, rows) => {
+    db.all(sql, (err: string, rows: []) => {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -109,14 +120,14 @@ export async function list(tableName, where, orderBy, offset, limit) {
   })
 }
 
-export async function count(tableName, where) {
+export async function count(tableName: string, where?: any[][]): Promise<any> {
   let sql = `SELECT COUNT(*) AS count FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
   }
   const db = await getDb()
   return await new Promise((resolve, reject) => {
-    db.get(sql, (err, row) => {
+    db.get(sql, (err: string, row: any) => {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -126,7 +137,7 @@ export async function count(tableName, where) {
   })
 }
 
-function parseWhere(sql, where) {
+function parseWhere(sql: string, where: any[][]): string {
   let whereArray = []
   for (let item of where) {
     if (!(item instanceof Array)) continue
@@ -154,14 +165,14 @@ function parseWhere(sql, where) {
   return sql
 }
 
-export async function getOne(tableName, where) {
+export async function getOne(tableName: string, where: any[][]): Promise<any> {
   let sql = `SELECT * FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
   }
   const db = await getDb()
   return await new Promise((resolve, reject) => {
-    db.get(sql, (err, row) => {
+    db.get(sql, (err: string, row: any) => {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -171,14 +182,14 @@ export async function getOne(tableName, where) {
   })
 }
 
-export async function remove(tableName, where) {
+export async function remove(tableName: string, where: any[][]): Promise<any> {
   let sql = `DELETE FROM ${tableName}`
   if (where) {
     sql = parseWhere(sql, where)
   }
   const db = await getDb()
   return await new Promise((resolve, reject) => {
-    db.get(sql, (err, row) => {
+    db.get(sql, (err: string, row: any) => {
       if (err != null) {
         reject(new Error(err))
       } else {
@@ -188,7 +199,13 @@ export async function remove(tableName, where) {
   })
 }
 
-export async function page(tableName, current, pageSize, where, orderBy) {
+export async function page(
+  tableName: string,
+  current: number,
+  pageSize: number,
+  where?: string[][],
+  orderBy?: string
+): Promise<any> {
   const offset = (current - 1) * pageSize
   const total = await count(tableName, where)
   const records = await list(tableName, where, orderBy, offset, pageSize)

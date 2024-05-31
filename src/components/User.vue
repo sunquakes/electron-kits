@@ -24,7 +24,7 @@
       </a-col>
       <a-col :span="12" style="text-align: right">
         <a-button type="primary" html-type="submit">{{ t('action.search') }}</a-button>
-        <a-button style="margin: 0 8px" @click="() => formRef.resetFields()">{{
+        <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">{{
           t('action.reset')
         }}</a-button>
       </a-col>
@@ -63,23 +63,23 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive } from 'vue'
-import type { TableColumnsType, FormInstance, Pagination } from 'ant-design-vue'
+import type { TableColumnsType, FormInstance, TablePaginationConfig } from 'ant-design-vue'
 import { pageList, del } from '../api/user'
 import { useI18n } from 'vue-i18n'
 import Form from './user/Form.vue'
 
 const formRef = ref<FormInstance>()
-const formState = reactive({
+const formState = reactive<any>({
   username: undefined,
   nickname: undefined
 })
 
-const initPagination: Pagination = {
+const initPagination = {
   current: 1,
   pageSize: 5
 }
 
-const pagination = reactive({ ...initPagination })
+const pagination = reactive<Pagination>({ ...initPagination })
 
 const { t } = useI18n({ useScope: 'global' })
 
@@ -96,6 +96,12 @@ const columns: TableColumnsType = [
     width: 100
   }
 ]
+
+interface Pagination {
+  total?: number
+  pageSize: number
+  current: number
+}
 
 interface DataItem {
   id: number
@@ -115,7 +121,7 @@ const handleSearch = () => {
   handlePage()
 }
 
-const parseWhere = (): [] => {
+const parseWhere = (): string[][] => {
   const where = []
   for (let key in formState) {
     if (formState[key]) {
@@ -125,25 +131,27 @@ const parseWhere = (): [] => {
   return where
 }
 
-const handlePage = async (p) => {
+const handlePage = async (p?: TablePaginationConfig) => {
   if (p) {
     Object.assign(pagination, p)
   } else {
     Object.assign(pagination, initPagination)
   }
   const where = parseWhere()
-  const result = await pageList(pagination.current, pagination.pageSize, where)
-  list.value = result.records
-  pagination.total = result.total
+  try {
+    const result = await pageList(pagination.current, pagination.pageSize, where)
+    list.value = result.records
+    pagination.total = result.total
+  } catch (e) {}
 }
 
-const handleDel = async (record) => {
+const handleDel = async (record: any) => {
   await del([['id', record.id]])
   handlePage()
 }
 
 const open = ref<boolean>(false)
-const item = ref(null)
+const item = ref()
 
 const formTitle = ref<string>('')
 
@@ -153,7 +161,7 @@ const handleAdd = () => {
   item.value = null
 }
 
-const handleEdit = (record) => {
+const handleEdit = (record: Record<string, any>) => {
   formTitle.value = t('title.edit')
   open.value = true
   item.value = record

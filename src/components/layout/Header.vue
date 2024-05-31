@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import type { SelectProps } from 'ant-design-vue'
-import { ref, h, reactive } from 'vue'
+import { ref, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -41,7 +41,7 @@ const router = useRouter()
 const store = useStore()
 const [modal, contextHolder] = Modal.useModal()
 
-const nickname = reactive<string>(store.getters.user?.nickname)
+const nickname = ref<string>(store.getters.user?.nickname || '')
 
 const langOptions = ref<SelectProps['options']>([
   {

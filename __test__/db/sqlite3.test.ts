@@ -1,4 +1,5 @@
 import sqlite3, { Database } from 'sqlite3'
+// @ts-ignore
 import sqlite3Rewire, {
   options,
   execute,
@@ -9,7 +10,7 @@ import sqlite3Rewire, {
   getOne,
   updateById,
   remove
-} from '../src/db/sqlite3'
+} from '../../src/db/sqlite3'
 
 jest.mock('sqlite3')
 
@@ -22,6 +23,7 @@ test('Test getDb', async () => {
   await getDb()
   expect(options.db).toBeInstanceOf(Database)
 
+  // @ts-ignore
   sqlite3.Database = jest.fn().mockImplementation((filePath, callback) => {
     if (callback !== undefined) {
       callback(new Error('Test'))
@@ -39,8 +41,11 @@ test('Test Create Table', async () => {
     'id Integer PRIMARY KEY AUTOINCREMENT,' +
     'content VARCHAR(255) NOT NULL DEFAULT ""' +
     ')'
-  sqlite3.Database.prototype.exec = jest.fn((sql, callback) => {
-    callback()
+  // @ts-ignore
+  sqlite3.Database = jest.fn().mockImplementation((filePath, callback) => {
+    return {
+      exec: jest.fn((sql, callback) => {})
+    }
   })
   options.db = undefined
 
@@ -48,6 +53,7 @@ test('Test Create Table', async () => {
     expect(err).toBe(undefined)
   })
 
+  // @ts-ignore
   sqlite3.Database = jest.fn().mockImplementation((filePath, callback) => {
     return {
       exec: jest.fn((sql, callback) => {
@@ -75,6 +81,7 @@ test('Test options', async () => {
 
 test('Test CRUD', async () => {
   // Mock database instance
+  // @ts-ignore
   sqlite3.Database = jest.fn().mockImplementation(() => {
     return {
       run: jest.fn(function (sql, callback) {
@@ -102,7 +109,7 @@ test('Test CRUD', async () => {
   expect(rows.length).toBeGreaterThan(0)
 
   // Test page.
-  const pageList = await page('test')
+  const pageList = await page('test', 1, 10)
   expect(pageList.total).toBeGreaterThan(0)
 
   // Test records count.
@@ -126,6 +133,7 @@ test('Test CRUD', async () => {
 
 test('Test CRUD error', async () => {
   // Test error.
+  // @ts-ignore
   sqlite3.Database = jest.fn().mockImplementation(() => {
     return {
       run: jest.fn(function (sql, callback) {
@@ -181,7 +189,7 @@ test('Test CRUD error', async () => {
   }
 
   try {
-    await remove('test', ['id', 1])
+    await remove('test', [['id', 1]])
   } catch (e) {
     expect(e.message).toBe('Test')
   }

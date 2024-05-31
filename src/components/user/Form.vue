@@ -57,20 +57,23 @@ const validateMessages = {
 }
 
 interface User {
+  id: number | undefined
   username: string
   nickname: string
   password: string
 }
 
 const user: User = {
-  username: undefined,
-  nickname: undefined,
-  password: undefined
+  id: undefined,
+  username: '',
+  nickname: '',
+  password: ''
 }
 
 let formState = ref<User>({ ...user })
 
-const formRef = ref(null)
+const formRef = ref()
+
 const handleSubmit = async (values: any) => {
   const valid = await formRef.value.validate()
   if (valid) {
@@ -95,7 +98,7 @@ const handleAdd = async () => {
 
 const handleEdit = async () => {
   try {
-    await edit(formState.value.id, formState.value)
+    await edit(formState.value.id as number, formState.value)
     message.success(t('message.edit.success'))
     onClose()
     emit('refreshList')
@@ -108,7 +111,7 @@ const onClose = () => {
   emit('close', false)
 }
 
-const resetFormState = (data) => {
+const resetFormState = (data: User) => {
   if (data == null) {
     formState.value = { ...user }
   } else {
@@ -120,7 +123,7 @@ const resetFormState = (data) => {
 watch(
   () => model.value,
   (_val) => {
-    resetFormState(model.value)
+    resetFormState(model.value as User)
   }
 )
 </script>

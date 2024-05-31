@@ -24,3 +24,5 @@ build/
 *.sln
 *.sw?
 *.db
+
+coverage/*
