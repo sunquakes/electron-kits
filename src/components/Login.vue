@@ -31,13 +31,13 @@
 
         <a-form-item>
           <a-form-item name="remember" no-style>
-            <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
+            <a-checkbox v-model:checked="formState.remember">{{ t('login.remember_me') }}</a-checkbox>
           </a-form-item>
-          <a class="login-form-forgot" href="">Forgot password</a>
+          <a class="login-form-forgot" href="">{{ t('login.forgot_password') }}</a>
         </a-form-item>
 
         <a-form-item>
-          <a-button type="primary" html-type="submit" class="login-form-button"> Log in </a-button>
+          <a-button type="primary" html-type="submit" class="login-form-button">{{ t('login.submit') }}</a-button>
           Or
           <a href="">register now!</a>
         </a-form-item>

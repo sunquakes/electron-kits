@@ -9,21 +9,16 @@ import { onMounted } from 'vue'
 const props = defineProps({
   id: {
     type: String,
-    default: 'pie-container'
-  },
-  name: {
-    type: String,
-    default: ''
+    default: 'line-container'
   },
   title: {
     type: String,
     default: ''
   },
-  subtitle: {
-    type: String,
-    default: ''
-  },
-  data: { type: Array, default: () => [] }
+  data: {
+    type: Object,
+    default: () => {}
+  }
 })
 
 onMounted(() => {
@@ -31,6 +26,7 @@ onMounted(() => {
 })
 
 const init = () => {
+  console.log('init', props.data.series)
   const chartDom = document.getElementById(props.id)
   const chart = echarts.init(chartDom)
   window.addEventListener('resize', function () {
@@ -39,32 +35,31 @@ const init = () => {
 
   const option = {
     title: {
-      text: props.title,
-      subtext: props.subtitle,
-      left: 'center'
+      text: props.title
     },
     tooltip: {
-      trigger: 'item'
+      trigger: 'axis'
     },
     legend: {
-      orient: 'vertical',
-      left: 'left'
+      data: props.data.legend
     },
-    series: [
-      {
-        name: props.name,
-        type: 'pie',
-        radius: '50%',
-        data: props.data,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
+    grid: {
+      top: '10%',
+      left: '2%',
+      right: '2%',
+      bottom: '10%',
+      containLabel: true
+    },
+    toolbox: {},
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: props.data.xAxis
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: props.data.series
   }
 
   option && chart.setOption(option)

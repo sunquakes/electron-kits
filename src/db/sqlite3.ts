@@ -55,6 +55,7 @@ export async function save(tableName: string, data: any): Promise<any> {
   let fields = '(' + fieldArray.join(',') + ')'
   let values = '(' + valueArray.join(',') + ')'
   let sql = `INSERT INTO ${tableName} ${fields} VALUES ${values}`
+  console.log('sql', sql)
   const db = await getDb()
   return await new Promise<number>((resolve, reject) => {
     db.run(sql, function (err: string) {

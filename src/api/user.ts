@@ -1,4 +1,4 @@
-import { page, getOne, remove, save, updateById } from '../db/sqlite3'
+import { page, getOne, remove, save, updateById, count } from '../db/sqlite3'
 import CryptoJS from 'crypto-js'
 import { datetime } from '../utils/date'
 
@@ -40,4 +40,8 @@ export async function add(data: any): Promise<any> {
   data.password = passwordMd5
   data.create_time = datetime(new Date())
   return await save(TABLE_NAME, data)
+}
+
+export async function doCount(where?: any[][]): Promise<any> {
+  return count(TABLE_NAME, where)
 }

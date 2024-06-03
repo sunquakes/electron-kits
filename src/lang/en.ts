@@ -33,6 +33,7 @@ export default {
   },
   menu: {
     dashboard: 'Dashboard',
+    chart: 'Chart',
     system: 'System',
     system_user: 'User'
   },
@@ -42,7 +43,10 @@ export default {
     username_required: 'Please input your username!',
     password_required: 'Please input your password!', // NOSONAR
     username_not_exist: 'Username does not exist!',
-    wrong_password: 'Wrong password!' // NOSONAR
+    wrong_password: 'Wrong password!', // NOSONAR
+    remember_me: 'Remember me',
+    forgot_password: 'Forgot password',
+    submit: 'Log in'
   },
   user: {
     username: 'Username',

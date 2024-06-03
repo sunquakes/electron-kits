@@ -1,10 +1,12 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 
 import Layout from '../components/Layout.vue'
+import Dashboard from '../components/Dashboard.vue'
+import Chart from '../components/Chart.vue'
 import User from '../components/User.vue'
 import Login from '../components/Login.vue'
 
-import { DashboardOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { DashboardOutlined, PieChartOutlined, SettingOutlined } from '@ant-design/icons-vue'
 
 const routes = [
   { name: 'Login', path: '/login', component: Login },
@@ -15,8 +17,14 @@ const routes = [
       {
         name: 'Dashboard',
         path: '/dashboard',
-        component: User,
+        component: Dashboard,
         meta: { isMenu: true, title: 'menu.dashboard', icon: DashboardOutlined }
+      },
+      {
+        name: 'Chart',
+        path: '/chart',
+        component: Chart,
+        meta: { isMenu: true, title: 'menu.chart', icon: PieChartOutlined }
       },
       {
         name: 'System',
