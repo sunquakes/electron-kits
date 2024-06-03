@@ -7,6 +7,12 @@ title: Getting Started
 
 `Electron Kits` is a kits combine by `Electron`, `Vue 3`, `Anti Design` and `SQLite3`.
 
+## Preview
+
+<p align="center">
+  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+</p>
+
 ## Quick Start
 
 ### Installing

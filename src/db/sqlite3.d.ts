@@ -12,16 +12,16 @@ export function list(
   limit: number
 ): Promise<any>
 
-export function count(tableName: string, where: string[][]): Promise<any>
+export function count(tableName: string, where: any[][]): Promise<any>
 
-export function getOne(tableName: string, where: string[][]): Promise<any>
+export function getOne(tableName: string, where: any[][]): Promise<any>
 
-export function remove(tableName: string, where: string[][]): Promise<any>
+export function remove(tableName: string, where: any[][]): Promise<any>
 
 export function page(
   tableName: string,
   current: number,
   pageSize: number,
-  where: string[][],
-  orderBy: string
+  where?: any[][],
+  orderBy?: string
 ): Promise<any>

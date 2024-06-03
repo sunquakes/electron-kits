@@ -57,14 +57,13 @@ const validateMessages = {
 }
 
 interface User {
-  id: number | undefined
+  id?: number | undefined
   username: string
   nickname: string
   password: string
 }
 
 const user: User = {
-  id: undefined,
   username: '',
   nickname: '',
   password: ''
@@ -92,6 +91,7 @@ const handleAdd = async () => {
     onClose()
     emit('refreshList')
   } catch (e) {
+    console.log('e', e)
     message.error(t('message.add.fail'))
   }
 }

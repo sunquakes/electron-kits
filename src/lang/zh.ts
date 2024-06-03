@@ -32,6 +32,7 @@ export default {
   },
   menu: {
     dashboard: '首页',
+    chart: '报表',
     system: '系统管理',
     system_user: '系统用户'
   },
@@ -41,7 +42,10 @@ export default {
     username_required: '请输入用户名！',
     password_required: '请输入密码！', // NOSONAR
     username_not_exist: '用户名不存在！',
-    wrong_password: '密码错误！' // NOSONAR
+    wrong_password: '密码错误！', // NOSONAR
+    remember_me: '记住我',
+    forgot_password: '忘记密码',
+    submit: '登录'
   },
   user: {
     username: '用户名',

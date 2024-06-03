@@ -31,7 +31,7 @@ save('table_name', { content: 'Hello World!' }).then((id) => {
 
 ```js
 import { remove } from '../src/db/sqlite3'
-remove('table_name', [id, 1]).then((err) => {
+remove('table_name', [[id, 1]]).then((err) => {
   console.log(err)
 })
 ```
