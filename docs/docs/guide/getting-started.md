@@ -12,6 +12,7 @@ title: Getting Started
 <p align="center">
   <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
 </p>
+<p>Test Account/Password: admin/admin</p>
 
 ## Quick Start
 
