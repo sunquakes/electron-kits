@@ -8,7 +8,7 @@ English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main
   </a>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/node-%3E=20.8.0-brightgreen.svg?maxAge=2592000" alt="Node">
+  <img src="https://img.shields.io/badge/node-%3E=20.12.1-brightgreen.svg?maxAge=2592000" alt="Node">
   <img alt="GitHub" src="https://img.shields.io/github/license/sunquakes/electron-kits?color=blue">
   <img alt="electron-kits" src="https://img.shields.io/github/v/release/sunquakes/electron-kits">
 </p>
@@ -16,7 +16,12 @@ English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main
 ## Preview
 
 <p align="center">
-  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+  <img width="75%" src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+</p>
+<p align="center">
+  <b>Test Account: admin</b>
+  <br>
+  <b>Test Password: admin</b>
 </p>
 
 ## Documentation

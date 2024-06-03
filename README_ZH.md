@@ -1,4 +1,4 @@
-[English](https://github.com/sunquakes/electron-kits/blob/main/README.md) | 🇨🇳中文
+[English](https://github.com/sunquakes/electron-kits/blob/main/README.md) | 🇨🇳 中文
 
 # Electron Kits
 
@@ -8,7 +8,7 @@
   </a>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/node-%3E=20.8.0-brightgreen.svg?maxAge=2592000" alt="Node">
+  <img src="https://img.shields.io/badge/node-%3E=20.12.1-brightgreen.svg?maxAge=2592000" alt="Node">
   <img alt="GitHub" src="https://img.shields.io/github/license/sunquakes/electron-kits?color=blue">
   <img alt="electron-kits" src="https://img.shields.io/github/v/release/sunquakes/electron-kits">
 </p>
@@ -16,7 +16,12 @@
 ## 预览
 
 <p align="center">
-  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+  <img width="75%" src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+</p>
+<p align="center">
+  <b>测试账号： admin</b>
+  <br>
+  <b>测试密码： admin</b>
 </p>
 
 ## 文档

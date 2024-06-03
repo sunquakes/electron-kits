@@ -12,6 +12,7 @@ title: 快速开始
 <p align="center">
   <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
 </p>
+<p>测试账号/密码：admin/admin</p>
 
 ## 快速开始
 
