@@ -16,7 +16,12 @@ English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main
 ## Preview
 
 <p align="center">
-  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+  <img width="60%" src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+</p>
+<p align="center">
+  <b>Test Account: admin</b>
+  <br>
+  <b>Test Password: admin</b>
 </p>
 
 ## Documentation

@@ -1,4 +1,4 @@
-[English](https://github.com/sunquakes/electron-kits/blob/main/README.md) | 🇨🇳中文
+[English](https://github.com/sunquakes/electron-kits/blob/main/README.md) | 🇨🇳 中文
 
 # Electron Kits
 
@@ -16,7 +16,12 @@
 ## 预览
 
 <p align="center">
-  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+  <img width="60%" src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+</p>
+<p align="center">
+  <b>测试账号： admin</b>
+  <br>
+  <b>测试密码： admin</b>
 </p>
 
 ## 文档
