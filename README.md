@@ -59,4 +59,3 @@ yarn test
 ## License
 
 [Apache-2.0 license](https://github.com/sunquakes/electron-kits/blob/main/LICENSE)
-```
