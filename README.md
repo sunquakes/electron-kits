@@ -54,6 +54,7 @@ yarn build
 
 ```bash
 yarn test
+```
 
 ## License
 

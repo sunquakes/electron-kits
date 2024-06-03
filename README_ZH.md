@@ -50,6 +50,12 @@ yarn
 yarn build
 ```
 
+### 测试
+
+```bash
+yarn test
+```
+
 ## 证书
 
 [Apache-2.0 license](https://github.com/sunquakes/electron-kits/blob/main/LICENSE)
