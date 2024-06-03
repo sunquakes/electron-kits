@@ -7,6 +7,12 @@ title: 快速开始
 
 `Electron Kits` 是包含 `Electron`， `Vue 3`， `Anti Design` 和 `SQLite3` 套件。
 
+## 预览
+
+<p align="center">
+  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+</p>
+
 ## 快速开始
 
 ### 安装

@@ -13,6 +13,12 @@
   <img alt="electron-kits" src="https://img.shields.io/github/v/release/sunquakes/electron-kits">
 </p>
 
+## 预览
+
+<p align="center">
+  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="预览">
+</p>
+
 ## 文档
 
 访问 [ekits.sunquakes.com](https://ekits.sunquakes.com).

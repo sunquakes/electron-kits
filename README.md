@@ -13,6 +13,12 @@ English | [🇨🇳 中文](https://github.com/sunquakes/electron-kits/blob/main
   <img alt="electron-kits" src="https://img.shields.io/github/v/release/sunquakes/electron-kits">
 </p>
 
+## Preview
+
+<p align="center">
+  <img src="https://ekits.sunquakes.com/images/electron-kits.gif" alt="preview">
+</p>
+
 ## Documentation
 
 Visit [ekits.sunquakes.com](https://ekits.sunquakes.com).
@@ -39,6 +45,12 @@ yarn
 yarn build
 ```
 
+### Test
+
+```bash
+yarn test
+
 ## License
 
 [Apache-2.0 license](https://github.com/sunquakes/electron-kits/blob/main/LICENSE)
+```
