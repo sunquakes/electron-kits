@@ -21,7 +21,7 @@ export default defineUserConfig({
         sidebar: {
           '/guide/': [
             {
-              children: ['/guide/getting-started.md', '/guide/sqlite3.md']
+              children: ['/guide/getting-started.md', '/guide/pages.md', '/guide/sqlite3.md']
             }
           ]
         }
@@ -35,7 +35,7 @@ export default defineUserConfig({
         sidebar: {
           '/zh/guide/': [
             {
-              children: ['/zh/guide/getting-started.md', '/zh/guide/sqlite3.md']
+              children: ['/zh/guide/getting-started.md', '/zh/guide/pages.md', '/zh/guide/sqlite3.md']
             }
           ]
         }
