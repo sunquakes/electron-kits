@@ -6,8 +6,10 @@ console.log('NODE_ENV', NODE_ENV)
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
+let win
+
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     minWidth: 1024,
     minHeight: 768,
     webPreferences: {
@@ -60,4 +62,30 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+const handleTerminationSignals = () => {
+  if (win) {
+    win.close()
+  }
+  app.quit()
+}
+
+if (process.platform === 'win32') {
+  require('readline')
+    .createInterface({
+      input: process.stdin,
+      output: process.stdout
+    })
+    .on('SIGINT', () => {
+      handleTerminationSignals()
+    })
+}
+
+process.on('SIGINT', () => {
+  handleTerminationSignals()
+})
+
+process.on('SIGTERM', () => {
+  handleTerminationSignals()
 })
